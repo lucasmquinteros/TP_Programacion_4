@@ -1,0 +1,6 @@
+@back_progr4_HostAddress = http://localhost:5266
+
+GET {{back_progr4_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
