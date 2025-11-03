@@ -2,19 +2,24 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { signIn } from "../services/auth";
 import { useAuthStore } from "../store/auth-store";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 
 export default function SignIn() {
   const { login } = useAuthStore();
   const { register, handleSubmit } = useForm();
-
+  const [, setLocation] = useLocation();
   const mutation = useMutation({
-    mutationKey: ["signup"],
+    mutationKey: ["signin"],
     mutationFn: signIn,
-    onSuccess: login,
+    onSuccess: () => {
+      login;
+      setLocation("/");
+    },
   });
 
-  const onSubmit = mutation.mutate;
+  const onSubmit = (credentials) => {
+    mutation.mutate(credentials);
+  };
 
   return (
     <div className="flex items-center h-screen">
@@ -32,16 +37,16 @@ export default function SignIn() {
           <div>
             <div className="mb-2 block">
               <label className=" text-black" htmlFor="email">
-                Email
+                Email o Username
               </label>
             </div>
             <input
               className="bg-[#f1f6f8] rounded-3xl px-3 py-1.5 w-full"
-              id="email"
-              type="email"
+              id="emailOrUsername"
+              type="text"
               placeholder="tu@email.com"
               required
-              {...register("email")}
+              {...register("emailOrUsername")}
             />
           </div>
           <div>

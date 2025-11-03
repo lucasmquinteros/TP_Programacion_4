@@ -23,3 +23,17 @@ export const signUp = async (user) => {
 
   return res.data;
 };
+
+export const checkAuth = async () => {
+  const res = await axios.get(`${url}/auth/health`, {
+    withCredentials: true,
+  });
+
+  return !(res.status == 401 || res.status == 403);
+};
+
+export const signOut = async () => {
+  await axios.post(`${url}/auth/users`, {
+    withCredentials: true,
+  });
+};

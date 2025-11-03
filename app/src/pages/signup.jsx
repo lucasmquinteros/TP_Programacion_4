@@ -9,7 +9,7 @@ export default function SignUp() {
   const { register, handleSubmit } = useForm();
 
   const mutation = useMutation({
-    mutationKey: ["signin"],
+    mutationKey: ["signup"],
     mutationFn: signUp,
     onSuccess: login,
   });
@@ -39,7 +39,7 @@ export default function SignUp() {
               type="text"
               placeholder="Pepe Gomez"
               required
-              {...register("name")}
+              {...register("userName")}
             />
           </div>
           <div>
