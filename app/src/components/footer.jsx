@@ -4,14 +4,14 @@ export default function Footer() {
     <footer className="p-6 mx-auto lg:w-[90%]">
       <div className="flex justify-between items-center flex-col-reverse gap-3.5 md:flex-row">
         <div>
-          <p className="m-2">
-            &copy;2025 SkyJumpPark. Todos los derechos reservados.
-          </p>
-          <p className="m-2">
+          <p className="m-2 text-center md:text-left">
             Teléfono:(+54)321-0987 | Email: info@skyjumppark.com
           </p>
+          <p className="m-2 text-center md:text-left">
+            &copy;2025 SkyJumpPark. Todos los derechos reservados.
+          </p>
         </div>
-        <div className="flex gap-1.5">
+        <div className="flex gap-5">
           <a
             href="https://github.com/lucasmquinteros/TP_Programacion_4"
             target="_blank"
@@ -22,7 +22,23 @@ export default function Footer() {
             href="https://github.com/lucasmquinteros/TP_Programacion_4"
             target="_blank"
           >
-            <img className="w-8" src="/github.png" alt="icono de github" />
+            <img
+              className="w-8"
+              src="/instagram.png"
+              alt="icono de instagram"
+            />
+          </a>
+          <a
+            href="https://github.com/lucasmquinteros/TP_Programacion_4"
+            target="_blank"
+          >
+            <img className="w-8" src="/facebook.png" alt="icono de facebook" />
+          </a>
+          <a
+            href="https://github.com/lucasmquinteros/TP_Programacion_4"
+            target="_blank"
+          >
+            <img className="w-8" src="/whatsapp.png" alt="icono de whatsapp" />
           </a>
         </div>
       </div>
