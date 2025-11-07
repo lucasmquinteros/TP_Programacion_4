@@ -41,7 +41,7 @@ export default function SignIn() {
               </label>
             </div>
             <input
-              className="bg-[#f1f6f8] rounded-3xl px-3 py-1.5 w-full"
+              className="bg-[#f1f6f8] rounded-3xl px-3 py-2 w-full"
               id="emailOrUsername"
               type="text"
               placeholder="tu@email.com"
@@ -56,7 +56,7 @@ export default function SignIn() {
               </label>
             </div>
             <input
-              className="bg-[#f1f6f8] rounded-3xl px-3 py-1.5 w-full"
+              className="bg-[#f1f6f8] rounded-3xl px-3 py-2 w-full"
               id="password"
               type="password"
               required

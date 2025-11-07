@@ -34,7 +34,7 @@ export default function SignUp() {
               </label>
             </div>
             <input
-              className="bg-[#f1f6f8] rounded-3xl px-3 py-1.5 w-full"
+              className="bg-[#f1f6f8] rounded-3xl px-3 py-2 w-full"
               id="name"
               type="text"
               placeholder="Pepe Gomez"
@@ -49,7 +49,7 @@ export default function SignUp() {
               </label>
             </div>
             <input
-              className="bg-[#f1f6f8] rounded-3xl px-3 py-1.5 w-full"
+              className="bg-[#f1f6f8] rounded-3xl px-3 py-2 w-full"
               id="email"
               type="email"
               placeholder="tu@email.com"
@@ -64,7 +64,7 @@ export default function SignUp() {
               </label>
             </div>
             <input
-              className="bg-[#f1f6f8] rounded-3xl px-3 py-1.5 w-full"
+              className="bg-[#f1f6f8] rounded-3xl px-3 py-2 w-full"
               id="password"
               type="password"
               required
@@ -79,7 +79,7 @@ export default function SignUp() {
               </label>
             </div>
             <input
-              className="bg-[#f1f6f8] rounded-3xl px-3 py-1.5 w-full"
+              className="bg-[#f1f6f8] rounded-3xl px-3 py-2 w-full"
               id="confirmPassword"
               type="password"
               required
