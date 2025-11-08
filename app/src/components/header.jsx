@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import { useAuthStore } from "../store/auth-store";
-import { Navbar, NavbarToggle } from "flowbite-react";
 import { useState } from "react";
 
 export default function Header() {
@@ -22,14 +21,14 @@ export default function Header() {
             <span className="w-6 h-[3px] rounded-4xl bg-gray-800"></span>
           </button>
         </div>
-        <div className="flex items-center">
+        <Link href="/" className="flex items-center">
           <img
             className="w-8 h-8 cursor-pointer"
             src="./logo.png"
             alt="logo de SkyJumpPark"
           />
-          <h3>SkyJumpPark</h3>
-        </div>
+          <h3 className="cursor-pointer">SkyJumpPark</h3>
+        </Link>
         <div className="hidden md:flex">
           <nav className="flex gap-5 lg:gap-12">
             <a className="cursor-pointer">Inicio</a>
@@ -39,7 +38,7 @@ export default function Header() {
           </nav>
         </div>
         <div>
-          {!isAuthenticated ? (
+          {isAuthenticated ? (
             <div className="flex items-center gap-5">
               <img
                 className="w-8 h-8 cursor-pointer"
@@ -55,15 +54,22 @@ export default function Header() {
             </div>
           ) : (
             <div className="flex gap-4">
+              <Link href="/sign-in">
+                <img
+                  className="w-8 h-8 cursor-pointer md:hidden"
+                  src="./user.png"
+                  alt="icono genérico de usuario"
+                />
+              </Link>
               <Link
                 href="/sign-in"
-                className="text-[#FFA500] border-[#FFA500] border-[1.8px] rounded-3xl px-3 py-1.5 cursor-pointer"
+                className="text-[#FFA500] border-[#FFA500] border-[1.8px] rounded-3xl px-3 py-1.5 cursor-pointer hidden md:block"
               >
                 Inicia Sesión
               </Link>
               <Link
                 href="/sign-up"
-                className="text-white bg-[#FFA500] rounded-3xl px-3 py-1.5 cursor-pointer"
+                className="text-white bg-[#FFA500] rounded-3xl px-3 py-1.5 cursor-pointer hidden md:block"
               >
                 Registrate
               </Link>
