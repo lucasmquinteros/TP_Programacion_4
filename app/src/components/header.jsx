@@ -9,7 +9,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className=" bg-white">
+    <header className=" bg-white sticky top-0 border-b border-b-gray-200">
       <div className="p-3 mx-auto flex justify-between items-center lg:w-[90%] md:p-6">
         <div className="md:hidden">
           <button

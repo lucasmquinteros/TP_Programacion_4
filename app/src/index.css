@@ -10,3 +10,9 @@
 body {
   background-color: #f1f6f8;
 }
+
+.containter {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

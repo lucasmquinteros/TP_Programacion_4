@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="flex flex-col gap-10 my-7">
+      <main className="flex flex-col items-center gap-10 my-7">
         <Hero />
         <Activities />
         <Schedules />
