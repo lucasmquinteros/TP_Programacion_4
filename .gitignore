@@ -5,6 +5,8 @@ migrations
 .DS_Store
 dist
 build
+bin/
+obj/
 .vscode
 .idea
 .vs
