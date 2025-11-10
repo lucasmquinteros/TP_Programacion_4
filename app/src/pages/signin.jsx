@@ -11,8 +11,8 @@ export default function SignIn() {
   const mutation = useMutation({
     mutationKey: ["signin"],
     mutationFn: signIn,
-    onSuccess: () => {
-      login;
+    onSuccess: (data) => {
+      login(data);
       setLocation("/");
     },
   });

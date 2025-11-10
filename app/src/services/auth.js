@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useAuthStore } from "../store/auth-store";
 
 const { VITE_API_URL: url } = import.meta.env;
 
@@ -25,15 +26,21 @@ export const signUp = async (user) => {
 };
 
 export const checkAuth = async () => {
-  const res = await axios.get(`${url}/auth/health`, {
-    withCredentials: true,
-  });
-
-  return !(res.status == 401 || res.status == 403);
+  try {
+    const res = await axios.get(`${url}/auth/health`, {
+      withCredentials: true,
+    });
+    return true;
+  } catch (error) {
+    if (error.response?.status == 401 || error.response?.status == 403) {
+      return false;
+    }
+    return true;
+  }
 };
 
 export const signOut = async () => {
-  await axios.post(`${url}/auth/users`, {
+  await axios.post(`${url}/auth/logout`, {
     withCredentials: true,
   });
 };

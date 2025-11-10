@@ -12,7 +12,7 @@ import { checkAuth, signOut } from "./services/auth.js";
 const queryClient = new QueryClient();
 
 export default function App() {
-  const logout = useAuthStore((s) => s.logout);
+  const { logout } = useAuthStore();
   useEffect(() => {
     checkAuth().then((ok) => {
       if (!ok) {
