@@ -12,8 +12,7 @@ export default function SignIn() {
     mutationKey: ["signin"],
     mutationFn: signIn,
     onSuccess: (data) => {
-      login;
-      console.log(data);
+      login(data);
 
       setLocation("/");
     },
