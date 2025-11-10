@@ -1,4 +1,5 @@
-﻿using back_progr4.Models.Role;
+﻿using back_progr4.ENUMS;
+using back_progr4.Models.Role;
 using back_progr4.Models.User;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +25,11 @@ namespace back_progr4.Config
                     l => l.HasOne<Role>().WithMany().HasForeignKey(x => x.RoleId),
                     r => r.HasOne<User>().WithMany().HasForeignKey(x => x.UserId)
                 );
+
+            modelBuilder.Entity<Role>().HasData(
+            new Role { Id = 1, Name = ROLE.USER },
+            new Role { Id = 2, Name = ROLE.ADMIN }
+        );
         }
     }
 }
