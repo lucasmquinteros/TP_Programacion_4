@@ -1,5 +1,5 @@
 import Activities from "../components/activities";
-import ReserveButton from "../components/reserve-button";
+import ReserveButton from "../components/buttons/reserve-button";
 import Footer from "../components/footer";
 import Header from "../components/header";
 import Hero from "../components/hero";

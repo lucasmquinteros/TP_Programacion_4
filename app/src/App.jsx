@@ -8,6 +8,8 @@ import { Switch, Route } from "wouter";
 import { useEffect } from "react";
 import { useAuthStore } from "./store/auth-store.js";
 import { checkAuth, signOut } from "./services/auth.js";
+import Reservations from "./pages/reservations.jsx";
+import UserReservations from "./pages/user-reservations.jsx";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +36,12 @@ export default function App() {
         </Route>
         <Route path="sign-up">
           <SignUp />
+        </Route>
+        <Route path="reservations">
+          <Reservations />
+        </Route>
+        <Route path="user-reservations">
+          <UserReservations />
         </Route>
 
         <Route>

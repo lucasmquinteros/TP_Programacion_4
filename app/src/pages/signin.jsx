@@ -13,10 +13,6 @@ export default function SignIn() {
     mutationFn: signIn,
     onSuccess: (data) => {
       login(data);
-<<<<<<< HEAD
-=======
-
->>>>>>> 58a8126fc026e48c28a58f08245425e9dd03bcca
       setLocation("/");
     },
   });

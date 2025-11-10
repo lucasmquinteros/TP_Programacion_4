@@ -1,6 +1,6 @@
 export default function Contact() {
   return (
-    <div className="flex flex-col w-[80%] gap-16 md:flex-row">
+    <div className="flex flex-col w-[80%] gap-16 md:flex-row" id="contact">
       <div className="md:w-[50%]">
         <h2 className="text-center font-bold text-2xl mb-3">Encuéntranos</h2>
         <iframe

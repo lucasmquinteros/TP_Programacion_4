@@ -1,4 +1,4 @@
-import ReserveButton from "./reserve-button";
+import ReserveButton from "./buttons/reserve-button";
 
 export default function Hero() {
   return (

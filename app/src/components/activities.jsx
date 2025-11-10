@@ -1,6 +1,6 @@
 export default function Activities() {
   return (
-    <div className="w-[80%] mx-auto">
+    <div id="activities" className="w-[80%] mx-auto">
       <h2 className="text-center font-bold text-2xl mb-3">
         Nuestras Actividades
       </h2>
