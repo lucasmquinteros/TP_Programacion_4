@@ -98,7 +98,6 @@ namespace back_progr4.Controllers
 
         [HttpGet("health")]
         [Authorize]
-        [ApiExplorerSettings(IgnoreApi = true)]
         public bool Health()
         {
             return true;

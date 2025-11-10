@@ -5,6 +5,7 @@ using back_progr4.Models.User.DTOs;
 using back_progr4.Models.User;
 using System.Net;
 using back_progr4.Repositories;
+using back_progr4.ENUMS;
 
 namespace back_progr4.Services
 {

@@ -4,7 +4,6 @@ import { useState } from "react";
 
 export default function Header() {
   const { user, isAuthenticated } = useAuthStore();
-  console.log(user);
 
   const [open, setOpen] = useState(false);
 
