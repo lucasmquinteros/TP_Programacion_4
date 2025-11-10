@@ -93,12 +93,16 @@ export default function Header() {
             <a href="#">Reservas</a>
             <a href="#">Contacto</a>
           </nav>
-          <button
-            href="/sign-up"
-            className="text-red-600 border-red-600 bg-red-200 border-[1.8px] rounded-3xl px-3 py-1.5 cursor-pointer"
-          >
-            Cerrar sesión
-          </button>
+          {isAuthenticated ? (
+            <button
+              href="/sign-up"
+              className="text-red-600 border-red-600 bg-red-200 border-[1.8px] rounded-3xl px-3 py-1.5 cursor-pointer"
+            >
+              Cerrar sesión
+            </button>
+          ) : (
+            <></>
+          )}
         </div>
         {open && (
           <div
