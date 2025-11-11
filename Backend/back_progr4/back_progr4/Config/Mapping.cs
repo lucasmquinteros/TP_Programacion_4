@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using back_progr4.Models.User.DTOs;
 using back_progr4.Models.User;
+using back_progr4.Models.Reserva;
+using back_progr4.Models.Reserva.DTOs;
 
 namespace back_progr4.Config
 {
@@ -12,6 +14,8 @@ namespace back_progr4.Config
             CreateMap<int?, int>().ConvertUsing((src, dest) => src ?? dest);
             CreateMap<bool?, bool>().ConvertUsing((src, dest) => src ?? dest);
             CreateMap<string?, string>().ConvertUsing((src, dest) => src ?? dest);
+
+            CreateMap<Reserva, ReservaDTO>();
 
             // Auth
             CreateMap<RegisterDTO, User>();

@@ -34,7 +34,7 @@ namespace back_progr4.Services
             return await _userServices.GetAll();
         }
 
-        async public Task<UserWithoutPassDTO> Register(RegisterDTO register)
+        async public Task<LoginResponseDTO> Register(RegisterDTO register)
         {
             var user = await _userServices.GetOneByEmailOrUsername(register.Email, register.UserName);
             if (user != null)
@@ -43,7 +43,11 @@ namespace back_progr4.Services
             }
 
             var created = await _userServices.CreateOne(register);
-            return created;
+            return new LoginResponseDTO
+            {
+                Token = GenerateJwt(user),
+                User = _mapper.Map<UserWithoutPassDTO>(user),
+            };
         }
 
         async public Task<LoginResponseDTO> Login(LoginDTO login, HttpContext context)

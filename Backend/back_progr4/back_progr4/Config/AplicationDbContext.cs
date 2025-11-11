@@ -1,5 +1,7 @@
 ﻿using back_progr4.ENUMS;
+using back_progr4.Models.Reserva;
 using back_progr4.Models.Role;
+using back_progr4.Models.Turno;
 using back_progr4.Models.User;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,12 +14,53 @@ namespace back_progr4.Config
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
 
+        // <-- Agregados
+        public DbSet<Turno> Turnos { get; set; }
+        public DbSet<Reserva> Reservas { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Unicidades básicas
             modelBuilder.Entity<User>().HasIndex(x => x.UserName).IsUnique();
             modelBuilder.Entity<User>().HasIndex(x => x.Email).IsUnique();
             modelBuilder.Entity<Role>().HasIndex(x => x.Name).IsUnique();
 
+            // Relación Turno -> Reservas (1 Turno : N Reservas)
+            modelBuilder.Entity<Turno>()
+                .HasMany(t => t.Reservas)
+                .WithOne(r => r.Turno)
+                .HasForeignKey(r => r.TurnoId)
+                .OnDelete(DeleteBehavior.Restrict); 
+
+            // Relación User -> Reservas (1 User : N Reservas)
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Reservas)
+                .WithOne(r => r.User)
+                .HasForeignKey(r => r.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Reserva>()
+                .HasIndex(r => new { r.UserId, r.TurnoId })
+                .IsUnique();
+
+            modelBuilder.Entity<Turno>()
+                .HasIndex(t => new { t.Fecha, t.HoraInicio })
+                .IsUnique();
+
+            // Validaciones / límites
+            modelBuilder.Entity<Reserva>()
+                .Property(r => r.Cantidad)
+                .IsRequired();
+
+            modelBuilder.Entity<Reserva>()
+                .Property(r => r.FechaReserva);
+
+            modelBuilder.Entity<Turno>()
+                .Property(t => t.Estado)
+                .IsRequired()
+                .HasMaxLength(30);
+
+      
             modelBuilder.Entity<User>()
                 .HasMany(x => x.Roles)
                 .WithMany()
@@ -27,9 +70,9 @@ namespace back_progr4.Config
                 );
 
             modelBuilder.Entity<Role>().HasData(
-            new Role { Id = 1, Name = ROLE.USER },
-            new Role { Id = 2, Name = ROLE.ADMIN }
-        );
+                new Role { Id = 1, Name = ROLE.USER },
+                new Role { Id = 2, Name = ROLE.ADMIN }
+            );
         }
     }
 }

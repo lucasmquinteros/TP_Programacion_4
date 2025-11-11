@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using back_progr4.Models.Reserva;
 
 namespace back_progr4.Models.User
 {
@@ -16,5 +17,7 @@ namespace back_progr4.Models.User
         public string Password { get; set; } = null!;
 
         public List<Role.Role> Roles { get; set; } = new();
+
+        public List<Reserva.Reserva> Reservas { get; set; }
     }
 }
