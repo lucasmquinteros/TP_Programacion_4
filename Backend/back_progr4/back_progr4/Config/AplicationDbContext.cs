@@ -132,9 +132,44 @@ namespace back_progr4.Config
                 Estado = "Activa"
             };
 
+
             modelBuilder.Entity<User>().HasData(user1, admin);
             modelBuilder.Entity<Turno>().HasData(turnoHoy);
             modelBuilder.Entity<Reserva>().HasData(reserva);
+
+
+            //Turnos : 
+            var turnos = new List<Turno>
+{
+                new Turno
+                {
+                    Id = 2,
+                    Fecha = DateTime.UtcNow.Date.AddDays(-1),
+                    HoraInicio = new TimeOnly(14, 0, 0),
+                    HoraFin = new TimeOnly(15, 0, 0),
+                    CupoMax = 50,
+                    Estado = "Cerrado"
+                },
+                new Turno
+                {
+                    Id = 3,
+                    Fecha = DateTime.UtcNow.Date.AddDays(1),
+                    HoraInicio = new TimeOnly(17, 0, 0),
+                    HoraFin = new TimeOnly(18, 0, 0),
+                    CupoMax = 50,
+                    Estado = "Abierto"
+                },
+                new Turno
+                {
+                    Id = 4,
+                    Fecha = DateTime.UtcNow.Date.AddDays(2),
+                    HoraInicio = new TimeOnly(15, 0, 0),
+                    HoraFin = new TimeOnly(16, 0, 0),
+                    CupoMax = 50,
+                    Estado = "Abierto"
+                }
+            };
+            modelBuilder.Entity<Turno>().HasData(turnos);
         }
     }
 }
