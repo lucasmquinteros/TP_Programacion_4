@@ -1,15 +1,17 @@
-import Home from "./pages/home.jsx";
-import SignUp from "./pages/signup.jsx";
-import SignIn from "./pages/signin.jsx";
-import Page404 from "./pages/page404.jsx";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Switch, Route } from "wouter";
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { useAuthStore } from "./store/auth-store.js";
 import { checkAuth, signOut } from "./services/auth.js";
-import Reservations from "./pages/reservations.jsx";
-import UserReservations from "./pages/user-reservations.jsx";
+import { LoadingSpinner } from "./components/loading-spinner.jsx";
+
+const Home = lazy(() => import("./pages/home.jsx"));
+const Page404 = lazy(() => import("./pages/page404.jsx"));
+const SignIn = lazy(() => import("./pages/signin.jsx"));
+const SignUp = lazy(() => import("./pages/signup.jsx"));
+const Reservations = lazy(() => import("./pages/reservations.jsx"));
+const UserReservations = lazy(() => import("./pages/user-reservations.jsx"));
 
 const queryClient = new QueryClient();
 
@@ -27,27 +29,29 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools />
-      <Switch>
-        <Route path="/">
-          <Home />
-        </Route>
-        <Route path="sign-in">
-          <SignIn />
-        </Route>
-        <Route path="sign-up">
-          <SignUp />
-        </Route>
-        <Route path="reservations">
-          <Reservations />
-        </Route>
-        <Route path="user-reservations">
-          <UserReservations />
-        </Route>
+      <Suspense fallback={<LoadingSpinner />}>
+        <Switch>
+          <Route path="/">
+            <Home />
+          </Route>
+          <Route path="sign-in">
+            <SignIn />
+          </Route>
+          <Route path="sign-up">
+            <SignUp />
+          </Route>
+          <Route path="reservations">
+            <Reservations />
+          </Route>
+          <Route path="user-reservations">
+            <UserReservations />
+          </Route>
 
-        <Route>
-          <Page404 />
-        </Route>
-      </Switch>
+          <Route>
+            <Page404 />
+          </Route>
+        </Switch>
+      </Suspense>
     </QueryClientProvider>
   );
 }

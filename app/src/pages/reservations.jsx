@@ -1,3 +1,12 @@
+import Footer from "../components/footer";
+import Header from "../components/header";
+
 export default function Reservations() {
-  return <div>Reservations</div>;
+  return (
+    <>
+      <Header />
+      <main></main>
+      <Footer />
+    </>
+  );
 }

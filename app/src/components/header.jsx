@@ -1,10 +1,11 @@
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useAuthStore } from "../store/auth-store";
 import { useState } from "react";
 import { signOut } from "../services/auth";
 
 export default function Header() {
   const { user, isAuthenticated, logout } = useAuthStore();
+  const [location] = useLocation();
 
   const [menu, setMenu] = useState(false);
   const [profile, setProfile] = useState(false);
@@ -32,18 +33,37 @@ export default function Header() {
         </Link>
         <div className="hidden md:flex">
           <nav className="flex gap-5 lg:gap-12">
-            <a href="#" className="cursor-pointer">
-              Inicio
-            </a>
-            <a href="#activities" className="cursor-pointer">
-              Actividades
-            </a>
-            <Link href="/reservations" className="cursor-pointer">
-              Reservar
-            </Link>
-            <a href="#contact" className="cursor-pointer">
-              Contacto
-            </a>
+            {location === "/" ? (
+              <>
+                <a href="#" className="cursor-pointer">
+                  Inicio
+                </a>{" "}
+                <a href="#activities" className="cursor-pointer">
+                  Actividades
+                </a>
+                <Link href="/reservations" className="cursor-pointer">
+                  Reservar
+                </Link>
+                <a href="#contact" className="cursor-pointer">
+                  Contacto
+                </a>
+              </>
+            ) : (
+              <>
+                <Link href="/" className="cursor-pointer">
+                  Inicio
+                </Link>
+                <Link href="/" className="cursor-pointer">
+                  Actividades
+                </Link>
+                <Link href="/reservations" className="cursor-pointer">
+                  Reservar
+                </Link>
+                <Link href="/" className="cursor-pointer">
+                  Contacto
+                </Link>
+              </>
+            )}
           </nav>
         </div>
         <div>
@@ -115,18 +135,37 @@ export default function Header() {
             ✕
           </button>
           <nav className="flex flex-col gap-6 text-lg mt-16">
-            <a href="#" onClick={() => setMenu(false)}>
-              Inicio
-            </a>
-            <a href="#activities" onClick={() => setMenu(false)}>
-              Actividades
-            </a>
-            <Link href="/reservations" className="cursor-pointer">
-              Reservar
-            </Link>
-            <a onClick={() => setMenu(false)} href="#contact">
-              Contacto
-            </a>
+            {location === "/" ? (
+              <>
+                <a href="#" className="cursor-pointer">
+                  Inicio
+                </a>{" "}
+                <a href="#activities" className="cursor-pointer">
+                  Actividades
+                </a>
+                <Link href="/reservations" className="cursor-pointer">
+                  Reservar
+                </Link>
+                <a href="#contact" className="cursor-pointer">
+                  Contacto
+                </a>
+              </>
+            ) : (
+              <>
+                <Link href="/" className="cursor-pointer">
+                  Inicio
+                </Link>
+                <Link href="/" className="cursor-pointer">
+                  Actividades
+                </Link>
+                <Link href="/reservations" className="cursor-pointer">
+                  Reservar
+                </Link>
+                <Link href="/" className="cursor-pointer">
+                  Contacto
+                </Link>
+              </>
+            )}
           </nav>
           {isAuthenticated ? (
             <button
