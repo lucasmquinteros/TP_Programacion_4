@@ -4,6 +4,8 @@ using back_progr4.Models.Role;
 using back_progr4.Models.Turno;
 using back_progr4.Models.User;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace back_progr4.Config
 {
@@ -69,10 +71,70 @@ namespace back_progr4.Config
                     r => r.HasOne<User>().WithMany().HasForeignKey(x => x.UserId)
                 );
 
+
+            // seed de roles
             modelBuilder.Entity<Role>().HasData(
                 new Role { Id = 1, Name = ROLE.USER },
                 new Role { Id = 2, Name = ROLE.ADMIN }
             );
+
+            //seed de usuarios: base.OnModelCreating(modelBuilder);
+
+            // Hash de ejemplo (contraseña: 123456)
+            var password = "123456";
+            using var sha = SHA256.Create();
+            var hashedPassword = Convert.ToBase64String(sha.ComputeHash(Encoding.UTF8.GetBytes(password)));
+
+            // Usuario normal
+            var user1 = new User
+            {
+                Id = 1,
+                UserName = "Juan Pérez",
+                Email = "juan@example.com",
+                Password = hashedPassword,
+                Roles = new List<Role>
+                {
+                    new Role { Id = 1, Name = ROLE.USER }
+                }
+            };
+
+            // Usuario admin
+            var admin = new User
+            {
+                Id = 2,
+                UserName = "Admin",
+                Email = "admin@parque.com",
+                Password = hashedPassword,
+                Roles = new List<Role>{
+                    new Role { Id = 1, Name = ROLE.USER }
+                }
+            };
+
+            // Turno de hoy (id 1) — necesario para la reserva
+            var turnoHoy = new Turno
+            {
+                Id = 1,
+                Fecha = DateTime.UtcNow.Date,
+                HoraInicio = new TimeOnly(15, 0, 0),
+                HoraFin = new TimeOnly(16, 0, 0),
+                CupoMax = 50,
+                Estado = "Abierto"
+            };
+
+            // Reserva de ejemplo
+            var reserva = new Reserva
+            {
+                Id = 1,
+                UserId = 1,
+                TurnoId = 1,
+                FechaReserva = DateTime.UtcNow,
+                Cantidad = 2,
+                Estado = "Activa"
+            };
+
+            modelBuilder.Entity<User>().HasData(user1, admin);
+            modelBuilder.Entity<Turno>().HasData(turnoHoy);
+            modelBuilder.Entity<Reserva>().HasData(reserva);
         }
     }
 }

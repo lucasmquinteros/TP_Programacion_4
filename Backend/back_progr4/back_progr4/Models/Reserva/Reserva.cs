@@ -14,10 +14,10 @@ namespace back_progr4.Models.Reserva
 
         [ForeignKey("User")]
 
-        public string UserId { get; set; } = null!;
+        public int UserId { get; set; } 
         public User.User User { get; set; } = null!;
         [ForeignKey("Turno")]
-        public string TurnoId { get; set; } = null!;
+        public int TurnoId { get; set; } 
         public Turno.Turno Turno { get; set; } = null!;
 
         [Range(1,50)]
