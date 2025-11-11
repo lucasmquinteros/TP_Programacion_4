@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Hernan\\TP_Programacion_4\\Backend\\back_progr4\\back_progr4\\back_progr4.csproj": {}
+    "C:\\Users\\lucas\\programacion4\\Backend\\back_progr4\\back_progr4\\back_progr4.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Hernan\\TP_Programacion_4\\Backend\\back_progr4\\back_progr4\\back_progr4.csproj": {
+    "C:\\Users\\lucas\\programacion4\\Backend\\back_progr4\\back_progr4\\back_progr4.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Hernan\\TP_Programacion_4\\Backend\\back_progr4\\back_progr4\\back_progr4.csproj",
+        "projectUniqueName": "C:\\Users\\lucas\\programacion4\\Backend\\back_progr4\\back_progr4\\back_progr4.csproj",
         "projectName": "back_progr4",
-        "projectPath": "C:\\Users\\Hernan\\TP_Programacion_4\\Backend\\back_progr4\\back_progr4\\back_progr4.csproj",
-        "packagesPath": "C:\\Users\\Hernan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Hernan\\TP_Programacion_4\\Backend\\back_progr4\\back_progr4\\obj\\",
+        "projectPath": "C:\\Users\\lucas\\programacion4\\Backend\\back_progr4\\back_progr4\\back_progr4.csproj",
+        "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lucas\\programacion4\\Backend\\back_progr4\\back_progr4\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Hernan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -95,7 +96,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

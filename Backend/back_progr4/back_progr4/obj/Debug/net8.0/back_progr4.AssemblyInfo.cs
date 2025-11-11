@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("back_progr4")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+11fa1b6241c9b360caea5d3dd380dc8ef391f1a1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+27566416cf81d05e39f0f4373b9e23499fceca6a")]
 [assembly: System.Reflection.AssemblyProductAttribute("back_progr4")]
 [assembly: System.Reflection.AssemblyTitleAttribute("back_progr4")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

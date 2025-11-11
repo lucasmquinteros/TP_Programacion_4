@@ -23,7 +23,7 @@ namespace back_progr4.Config
             CreateMap<User, UserWithoutPassDTO>().ForMember(
                 dest => dest.Roles,
                 opt => opt.MapFrom(e => e.Roles.Select(x => x.Name).ToList())
-            );
+            ).ReverseMap();
         }
     }
 }

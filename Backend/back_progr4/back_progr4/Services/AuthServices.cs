@@ -45,8 +45,8 @@ namespace back_progr4.Services
             var created = await _userServices.CreateOne(register);
             return new LoginResponseDTO
             {
-                Token = GenerateJwt(user),
-                User = _mapper.Map<UserWithoutPassDTO>(user),
+                Token = GenerateJwt(_mapper.Map<UserWithoutPassDTO>(created)),
+                User = _mapper.Map<UserWithoutPassDTO>(created),
             };
         }
 
@@ -69,7 +69,7 @@ namespace back_progr4.Services
 
             await SetCookie(user, context);
 
-            string token = GenerateJwt(user);
+            string token = GenerateJwt(_mapper.Map<UserWithoutPassDTO>(user));
 
             return new LoginResponseDTO
             {
@@ -113,7 +113,7 @@ namespace back_progr4.Services
             );
         }
 
-        public string GenerateJwt(User user)
+        public string GenerateJwt(UserWithoutPassDTO user)
         {
             var key = Encoding.UTF8.GetBytes(_secret);
             var symmetricKey = new SymmetricSecurityKey(key);
@@ -126,11 +126,11 @@ namespace back_progr4.Services
             var claims = new ClaimsIdentity();
             claims.AddClaim(new Claim("id", user.Id.ToString()));
 
-            if (user.Roles != null || user.Roles?.Count > 0)
+            if (user.Roles != null && user.Roles?.Count > 0)
             {
                 foreach (var role in user.Roles)
                 {
-                    var claim = new Claim(ClaimTypes.Role, role.Name);
+                    var claim = new Claim(ClaimTypes.Role, role);
                     claims.AddClaim(claim);
                 }
             }
