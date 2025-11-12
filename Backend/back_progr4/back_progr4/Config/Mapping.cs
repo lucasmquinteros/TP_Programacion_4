@@ -6,6 +6,7 @@ using back_progr4.Models.Reserva.DTOs;
 using back_progr4.Models.Turno;
 using back_progr4.Models.Turno.DTOs;
 using back_progr4.Models.Turno.DTOs.back_progr4.Models.Turno.DTOs;
+using back_progr4.ENUMS;
 
 namespace back_progr4.Config
 {
@@ -21,6 +22,15 @@ namespace back_progr4.Config
             //Reserva
             CreateMap<Reserva, ReservaDTO>().ReverseMap();
             CreateMap<CreateReservaDTO, ReservaDTO>().ReverseMap();
+            CreateMap<CreateReservaDTO, Reserva>()
+                .ForMember(
+                    dest => dest.FechaReserva,
+                    opt => opt.MapFrom(src => DateTime.Now) // El servidor ESTABLECE la fecha
+                )
+                .ForMember(
+                    dest => dest.Estado,
+                    opt => opt.MapFrom(src => ESTADO.CONFIRMADA) // El servidor ESTABLECE el estado inicial
+                );
             CreateMap<Reserva, CreateReservaDTO>();
             CreateMap<UpdateReservaDTO, Reserva>().ReverseMap();
 
