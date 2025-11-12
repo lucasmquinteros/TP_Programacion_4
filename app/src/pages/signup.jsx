@@ -3,12 +3,13 @@ import { useForm } from "react-hook-form";
 import { signUp } from "../services/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthStore } from "../store/auth-store";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { signUpSchema } from "../schema/authSchema.js";
 import FormInput from "../components/formInputs/FormInput";
 
 export default function SignUp() {
   const { login } = useAuthStore();
+  const [, setLocation] = useLocation();
 
   const {
     register,
@@ -25,7 +26,10 @@ export default function SignUp() {
   const mutation = useMutation({
     mutationKey: ["signup"],
     mutationFn: signUp,
-    onSuccess: login,
+    onSuccess: (data) => {
+      login(data);
+      setLocation("/");
+    },
   });
 
   const onSubmit = mutation.mutate;
