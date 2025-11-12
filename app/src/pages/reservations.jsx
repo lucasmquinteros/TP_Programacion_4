@@ -5,7 +5,6 @@ import Header from "../components/header";
 import ConfirmModal from "../components/confirm-modal";
 
 export default function Reservations() {
-  const [modal, setModal] = useState(false);
   return (
     <>
       <Header />
@@ -13,8 +12,6 @@ export default function Reservations() {
         <div className="text-center">
           <h2 className="font-bold text-3xl">Encontra tu próximo salto</h2>
           <p>Selecciona un día para ver los turnos disponibles</p>
-          <button onClick={() => setModal(true)}>Reservar</button>
-          {modal && <ConfirmModal setModal={setModal} />}
         </div>
         <Calendar />
       </main>

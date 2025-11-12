@@ -89,7 +89,7 @@ export default function Header() {
             </div>
           ) : (
             <div className="flex gap-4">
-              {isAuthenticated ? (
+              {!isAuthenticated ? (
                 <button onClick={() => setProfile(true)}>
                   <img
                     className="w-8 h-8 cursor-pointer md:hidden"
