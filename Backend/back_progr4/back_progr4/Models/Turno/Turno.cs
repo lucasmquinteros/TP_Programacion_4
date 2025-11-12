@@ -1,4 +1,5 @@
-﻿using back_progr4.Models.Reserva;
+﻿using back_progr4.ENUMS;
+using back_progr4.Models.Reserva;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -20,10 +21,10 @@ namespace back_progr4.Models.Turno
         // Cupo máximo de personas
         public int CupoMax { get; set; } = 50;
 
-        // Estado (por ejemplo: "Disponible", "Lleno", "Cancelado")
-        public string Estado { get; set; } = "Disponible";
+        // Estado 
+        public string Estado { get; set; } = ESTADO.DISPONIBLE;
 
-        // Navegación opcional a Reservas si aplicara
+        // Navegación opcional a Reservas
         public List<Reserva.Reserva>? Reservas { get; set; }
     }
 

@@ -42,10 +42,14 @@ builder.Services.AddScoped<UserServices>();
 builder.Services.AddScoped<AuthServices>();
 builder.Services.AddScoped<IEncoderServices, EncoderServices>();
 builder.Services.AddScoped<RoleServices>();
+builder.Services.AddScoped<TurnoService>();
+builder.Services.AddScoped<ReservaService>();
 
 // Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<ITurnoRepository, TurnoRepository>();
+builder.Services.AddScoped<IReservaRepository, ReservaRepository>();
 
 builder.Services.AddAutoMapper(opts => { }, typeof(Mapping));
 

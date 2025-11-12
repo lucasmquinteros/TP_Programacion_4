@@ -18,14 +18,14 @@ namespace back_progr4.Services
             _db = db;
         }
 
-        public async Task<ReservaDTO> GetOneById(int id)
+        public async Task<Reserva> GetOneById(int id)
         {
             var reserva = await _db.Reservas.FirstOrDefaultAsync(x => x.Id == id);
             if (reserva == null)
             {
                 throw new HttpResponseError(System.Net.HttpStatusCode.NotFound, "No se encontro o no existe la reserva");
             }
-            return _mapper.Map<ReservaDTO>(reserva);
+            return reserva;
         }
         public async Task<List<ReservaDTO>> GetAllToday()
         {
@@ -42,9 +42,38 @@ namespace back_progr4.Services
 
             return reservasDto;
         }
-        public async Task CreateOne()
+        public async Task<List<ReservaDTO>> GetAllByDay(DateTime date)
         {
+            var reservas = await _db.Reservas.Where(r => r.FechaReserva.Date == date.Date).ToListAsync();
+            return _mapper.Map<List<ReservaDTO>>(reservas);
+        }
+        public async Task<ReservaDTO> CreateOne(CreateReservaDTO createReserva)
+        {
+            var reserva = _mapper.Map<Reserva>(createReserva);
 
+            await _db.Reservas.AddAsync(reserva);
+            await _db.SaveChangesAsync();
+
+            return _mapper.Map<ReservaDTO>(reserva);
+
+        }
+        public async Task<ReservaDTO> UpdateOne(int id , UpdateReservaDTO updateReserva)
+        {
+            var reserva = await GetOneById(id);
+            
+            Reserva reservaMappeada = _mapper.Map(updateReserva, reserva);
+            
+            _db.Reservas.Update(reservaMappeada);
+            await _db.SaveChangesAsync();
+
+            return _mapper.Map<ReservaDTO>(reservaMappeada);
+
+        }
+        public async Task DeleteOne(int id)
+        {
+            var reserva = await GetOneById(id);
+            _db.Reservas.Remove(reserva);
+            await _db.SaveChangesAsync();
         }
 
     }
