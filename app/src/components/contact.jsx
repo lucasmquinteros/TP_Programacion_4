@@ -1,4 +1,42 @@
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { contactSchema } from "../schema/authSchema.js";
 export default function Contact() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    resolver: zodResolver(contactSchema),
+    mode: "onTouched",
+  });
+  //mutation para enviar el mensaje a la API
+  const sendMessageMutation = useMutation({
+    mutationFn: async (data) => {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) throw new Error("Error al enviar mensaje");
+      return response.json();
+    },
+
+    onSuccess: () => {
+      reset();
+    },
+
+    onError: (error) => {
+      console.error("Error:", error.message);
+    },
+  });
+
+  const onSubmit = (data) => {
+    sendMessageMutation.mutate(data);
+  };
+
   return (
     <div className="flex flex-col w-[80%] gap-16 md:flex-row" id="contact">
       <div className="md:w-[50%]">
@@ -15,19 +53,19 @@ export default function Contact() {
       </div>
       <div className="md:w-[50%]">
         <h2 className="text-center font-bold text-2xl mb-3">Contáctanos</h2>
-        <form className="flex max-w flex-col gap-3.5">
+        <form
+          className="flex max-w flex-col gap-3.5"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div>
-            <div className="mb-2 block">
-              <label htmlFor="name" className=" text-black">
-                Nombre
-              </label>
-            </div>
-            <input
-              className="bg-white rounded-3xl px-3 py-2 w-full border border-gray-300"
+            <FormInput
+              label="Nombre"
               id="name"
               type="text"
-              required
               placeholder="Tu nombre"
+              register={register("name")}
+              error={errors.name}
+              disabled={isSubmitting || sendMessageMutation.isPending}
             />
           </div>
           <div>
@@ -36,12 +74,14 @@ export default function Contact() {
                 Email
               </label>
             </div>
-            <input
-              className="bg-white rounded-3xl px-3 py-2 w-full border border-gray-300"
-              id="emailOrUsername"
-              type="text"
+            <FormInput
+              label="Email"
+              id="email"
+              type="email"
               placeholder="tu@email.com"
-              required
+              register={register("email")}
+              error={errors.email}
+              disabled={isSubmitting || sendMessageMutation.isPending}
             />
           </div>
           <div>
@@ -49,12 +89,30 @@ export default function Contact() {
               Mensaje
             </label>
           </div>
-          <textarea
-            name="message"
+          <FormTextarea
+            label="Mensaje"
             id="message"
             placeholder="Escribe tu mensaje..."
-            className="bg-white rounded-3xl px-3 py-2 w-full border border-gray-300"
-          ></textarea>
+            rows={5}
+            register={register("message")}
+            error={errors.message}
+            disabled={isSubmitting || sendMessageMutation.isPending}
+          />
+
+          {sendMessageMutation.isError && (
+            //mensaje de error de envio del formulario
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-3xl">
+              {sendMessageMutation.error?.message ||
+                "Error al enviar el mensaje"}
+            </div>
+          )}
+
+          {sendMessageMutation.isSuccess && (
+            //mensaje de formulario enviado con exito
+            <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-3xl">
+              ¡Mensaje enviado correctamente!
+            </div>
+          )}
 
           <button
             type="submit"

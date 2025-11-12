@@ -1,13 +1,25 @@
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signInSchema } from "../schema/authSchema.js";
 import { signIn } from "../services/auth";
 import { useAuthStore } from "../store/auth-store";
 import { Link, useLocation } from "wouter";
+import FormInput from "../components/formInputs/FormInput";
 
 export default function SignIn() {
   const { login } = useAuthStore();
-  const { register, handleSubmit } = useForm();
   const [, setLocation] = useLocation();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(signInSchema),
+    mode: "onTouched",
+  });
+
   const mutation = useMutation({
     mutationKey: ["signin"],
     mutationFn: signIn,
@@ -35,40 +47,34 @@ export default function SignIn() {
             Inicia sesión para continuar
           </p>
           <div>
-            <div className="mb-2 block">
-              <label className=" text-black" htmlFor="email">
-                Email o Username
-              </label>
-            </div>
-            <input
-              className="bg-[#f1f6f8] rounded-3xl px-3 py-2 w-full"
+            <FormInput
+              label="Email o Username"
               id="emailOrUsername"
               type="text"
               placeholder="tu@email.com"
-              required
-              {...register("emailOrUsername")}
+              register={register("emailOrUsername")}
+              error={errors.emailOrUsername}
+              disabled={isSubmitting || mutation.isPending}
             />
           </div>
           <div>
-            <div className="mb-2 block">
-              <label htmlFor="password" className=" text-black">
-                Contraseña
-              </label>
-            </div>
-            <input
-              className="bg-[#f1f6f8] rounded-3xl px-3 py-2 w-full"
+            <FormInput
+              label="Contraseña"
               id="password"
               type="password"
-              required
               placeholder="Contraseña"
-              {...register("password")}
+              register={register("password")}
+              error={errors.password}
+              disabled={isSubmitting || mutation.isPending}
             />
           </div>
+
           <button
             type="submit"
+            disabled={isSubmitting || mutation.isPending}
             className="text-white bg-[#FFA500] rounded-3xl px-3 py-1.5 cursor-pointer"
           >
-            Iniciar sesión
+            {mutation.isPending ? "Iniciando sesión..." : "Iniciar sesión"}
           </button>
           <p className="text-center text-gray-700">
             ¿No tenés cuenta?{" "}

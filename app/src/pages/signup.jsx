@@ -1,12 +1,26 @@
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { signUp } from "../services/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthStore } from "../store/auth-store";
 import { Link } from "wouter";
+import { signUpSchema } from "../schema/authSchema.js";
+import FormInput from "../components/formInputs/FormInput";
 
 export default function SignUp() {
   const { login } = useAuthStore();
-  const { register, handleSubmit } = useForm();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    watch,
+  } = useForm({
+    resolver: zodResolver(signUpSchema),
+    mode: "onTouched",
+  });
+
+  const password = watch("password");
 
   const mutation = useMutation({
     mutationKey: ["signup"],
@@ -28,70 +42,55 @@ export default function SignUp() {
             Únete a la diversión y gestiona tus reservas fácilmente.
           </p>
           <div>
-            <div className="mb-2 block">
-              <label className=" text-black" htmlFor="name">
-                Nombre completo
-              </label>
-            </div>
-            <input
-              className="bg-[#f1f6f8] rounded-3xl px-3 py-2 w-full"
-              id="name"
+            <FormInput
+              label="Nombre completo"
+              id="userName"
               type="text"
               placeholder="Pepe Gomez"
-              required
-              {...register("userName")}
+              register={register("userName")}
+              error={errors.userName}
+              disabled={isSubmitting || mutation.isLoading}
             />
           </div>
           <div>
-            <div className="mb-2 block">
-              <label className=" text-black" htmlFor="email">
-                Correo electrónico
-              </label>
-            </div>
-            <input
-              className="bg-[#f1f6f8] rounded-3xl px-3 py-2 w-full"
+            <FormInput
+              label="Correo electrónico"
               id="email"
               type="email"
               placeholder="tu@email.com"
-              required
-              {...register("email")}
+              register={register("email")}
+              error={errors.email}
+              disabled={isSubmitting || mutation.isLoading}
             />
           </div>
           <div>
-            <div className="mb-2 block">
-              <label htmlFor="password" className=" text-black">
-                Contraseña
-              </label>
-            </div>
-            <input
-              className="bg-[#f1f6f8] rounded-3xl px-3 py-2 w-full"
+            <FormInput
+              label="Contraseña"
               id="password"
               type="password"
-              required
               placeholder="Contraseña"
-              {...register("password")}
+              register={register("password")}
+              error={errors.password}
+              disabled={isSubmitting || mutation.isLoading}
             />
           </div>
           <div>
-            <div className="mb-2 block">
-              <label htmlFor="confirmPassword" className=" text-black">
-                Confirmar Contraseña
-              </label>
-            </div>
-            <input
-              className="bg-[#f1f6f8] rounded-3xl px-3 py-2 w-full"
+            <FormInput
+              label="Confirmar Contraseña"
               id="confirmPassword"
               type="password"
-              required
               placeholder="Repetir contraseña"
-              {...register("confirmPassword")}
+              register={register("confirmPassword")}
+              error={errors.confirmPassword}
+              disabled={isSubmitting || mutation.isLoading}
             />
           </div>
           <button
             type="submit"
-            className="text-white bg-[#FFA500] rounded-3xl px-3 py-1.5 cursor-pointer"
+            disabled={isSubmitting || mutation.isLoading}
+            className="text-white bg-[#FFA500] rounded-3xl px-3 py-1.5 cursor-pointer disabled:bg-gray-400"
           >
-            Registrarse
+            {mutation.isLoading ? "Registrando..." : "Registrarse"}
           </button>
           <p className="text-center text-gray-700">
             ¿Ya tenés una cuenta?{" "}
