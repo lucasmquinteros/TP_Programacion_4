@@ -1,0 +1,36 @@
+import { useState } from "react";
+import { Datepicker } from "flowbite-react";
+
+export function Calendar() {
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  return (
+    <div
+      className="
+        flex flex-col items-center gap-4 p-4
+        [&_div]:bg-white [&_div]:rounded-3xl
+        [&_button]:text-gray-900 [&_button]:bg-white
+        [&_button:hover]:bg-[#0DA6F2] [&_button:hover]:text-white
+        [&_button:focus]:bg-[#0DA6F2] [&_button:focus]:text-white
+      "
+    >
+      <Datepicker inline onChange={(date) => setSelectedDate(date)} />
+
+      {selectedDate ? (
+        <p className="text-gray-900 font-medium">
+          📅 Fecha seleccionada:{" "}
+          <span className="font-semibold">
+            {selectedDate.toLocaleDateString("es-AR", {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </span>
+        </p>
+      ) : (
+        <p className="text-gray-500">Seleccioná una fecha del calendario</p>
+      )}
+    </div>
+  );
+}
