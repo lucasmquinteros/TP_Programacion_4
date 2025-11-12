@@ -41,7 +41,7 @@ export default function Contact() {
 
   return (
     <div className="flex flex-col w-[80%] gap-16 md:flex-row" id="contact">
-      <div className="md:w-[50%]">
+      <div className="md:w-[50%] ">
         <h2 className="text-center font-bold text-2xl mb-3">Encuéntranos</h2>
         <iframe
           className="w-full"
@@ -53,10 +53,10 @@ export default function Contact() {
           referrerPolicy="no-referrer-when-downgrade"
         ></iframe>
       </div>
-      <div className="md:w-[50%]">
+      <div className="md:w-[50%] ">
         <h2 className="text-center font-bold text-2xl mb-3">Contáctanos</h2>
         <form
-          className="flex max-w flex-col gap-3.5"
+          className="flex max-w flex-col gap-3.5 bg-white rounded-4xl text-black p-5 shadow-2xl"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div>

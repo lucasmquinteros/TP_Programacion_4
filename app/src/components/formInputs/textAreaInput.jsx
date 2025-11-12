@@ -18,7 +18,7 @@ export default function FormTextarea({
         </label>
       </div>
       <textarea
-        className={`bg-white rounded-3xl px-3 py-2 w-full border ${
+        className={`bg-[#f1f6f8] rounded-3xl px-3 py-2 w-full border ${
           error ? "border-2 border-red-500" : "border-gray-300"
         }`}
         id={id}
