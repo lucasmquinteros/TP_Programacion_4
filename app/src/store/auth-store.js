@@ -1,5 +1,6 @@
 import { persist } from "zustand/middleware";
 import { create } from "zustand";
+
 const handler = (set) => ({
   isAuthenticated: false,
   user: null,

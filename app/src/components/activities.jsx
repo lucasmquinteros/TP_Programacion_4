@@ -24,7 +24,7 @@ export default function Activities() {
           <img src="/logo.png" alt="" className="w-9" />
           <h4 className="font-bold text-[22px]">Piscina de espuma</h4>
           <p>
-            Aterriza de forma segura en nuestra piscina llena de cubos de
+            Aterrizá de forma segura en nuestra piscina llena de cubos de
             espuma.
           </p>
         </div>

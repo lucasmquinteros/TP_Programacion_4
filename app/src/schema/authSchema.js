@@ -23,14 +23,14 @@ export const signUpSchema = z
     password: z
       .string()
       .regex(
-        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@%+-]).{8,}$/,
-        "La contraseña debe tener al menos 8 caracteres, incluir una mayusula, una minuscula, un numero y un caracter especial (@%+-)"
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/,
+        "La contraseña debe tener al menos 8 caracteres, incluir una mayusula, una minuscula y un numero"
       ),
     confirmPassword: z
       .string()
       .regex(
-        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@%+-]).{8,}$/,
-        "La contraseña debe tener al menos 8 caracteres, incluir una mayusula, una minuscula, un numero y un caracter especial (@%+-)"
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/,
+        "La contraseña debe tener al menos 8 caracteres, incluir una mayusula, una minuscula y un numero"
       ),
   })
   .refine((data) => data.password === data.confirmPassword, {

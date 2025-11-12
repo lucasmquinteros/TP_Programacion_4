@@ -71,11 +71,6 @@ export default function Contact() {
             />
           </div>
           <div>
-            <div className="mb-2 block">
-              <label className=" text-black" htmlFor="email">
-                Email
-              </label>
-            </div>
             <FormInput
               label="Email"
               id="email"
@@ -86,15 +81,10 @@ export default function Contact() {
               disabled={isSubmitting || sendMessageMutation.isPending}
             />
           </div>
-          <div>
-            <label htmlFor="message" className=" text-black">
-              Mensaje
-            </label>
-          </div>
           <FormTextarea
             label="Mensaje"
             id="message"
-            placeholder="Escribe tu mensaje..."
+            placeholder="Escribí tu mensaje..."
             rows={5}
             register={register("message")}
             error={errors.message}
