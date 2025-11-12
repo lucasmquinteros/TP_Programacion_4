@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { contactSchema } from "../schema/authSchema.js";
+import FormInput from "../components/formInputs/FormInput";
+import FormTextarea from "../components/formInputs/TextAreaInput.jsx";
 export default function Contact() {
   const {
     register,
