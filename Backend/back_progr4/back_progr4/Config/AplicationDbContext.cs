@@ -4,6 +4,8 @@ using back_progr4.Models.Role;
 using back_progr4.Models.Turno;
 using back_progr4.Models.User;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace back_progr4.Config
 {
@@ -69,10 +71,14 @@ namespace back_progr4.Config
                     r => r.HasOne<User>().WithMany().HasForeignKey(x => x.UserId)
                 );
 
+
+            // seed de roles
             modelBuilder.Entity<Role>().HasData(
                 new Role { Id = 1, Name = ROLE.USER },
                 new Role { Id = 2, Name = ROLE.ADMIN }
             );
+
+            
         }
     }
 }
