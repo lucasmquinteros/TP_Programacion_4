@@ -1,12 +1,21 @@
+import { useState } from "react";
 import { Calendar } from "../components/calendar";
 import Footer from "../components/footer";
 import Header from "../components/header";
+import ConfirmModal from "../components/confirm-modal";
 
 export default function Reservations() {
+  const [modal, setModal] = useState(false);
   return (
     <>
       <Header />
-      <main>
+      <main className="flex flex-col items-center gap-10 md:gap-16 my-8">
+        <div className="text-center">
+          <h2 className="font-bold text-3xl">Encontra tu próximo salto</h2>
+          <p>Selecciona un día para ver los turnos disponibles</p>
+          <button onClick={() => setModal(true)}>Reservar</button>
+          {modal && <ConfirmModal setModal={setModal} />}
+        </div>
         <Calendar />
       </main>
       <Footer />
