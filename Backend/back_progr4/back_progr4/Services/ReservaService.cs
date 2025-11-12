@@ -3,6 +3,7 @@ using AutoMapper;
 using back_progr4.Config;
 using back_progr4.Models.Reserva;
 using back_progr4.Models.Reserva.DTOs;
+using back_progr4.Models.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace back_progr4.Services
@@ -26,6 +27,18 @@ namespace back_progr4.Services
                 throw new HttpResponseError(System.Net.HttpStatusCode.NotFound, "No se encontro o no existe la reserva");
             }
             return reserva;
+        }
+        public async Task<List<ReservaDTO>> GetAllByUserID(int userId)
+        {
+            var reservasUsuario = await _db.Reservas
+                .Where(r => r.UserId == userId)
+                .Include(r => r.Turno)
+                .Include(r => r.User)
+                .OrderByDescending(r => r.FechaReserva) 
+                .ToListAsync();
+
+            var reservasDto = _mapper.Map<List<ReservaDTO>>(reservasUsuario);
+            return reservasDto;
         }
         public async Task<List<ReservaDTO>> GetAllToday()
         {

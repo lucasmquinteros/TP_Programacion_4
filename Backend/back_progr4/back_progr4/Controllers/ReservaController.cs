@@ -11,6 +11,7 @@ using back_progr4.ENUMS;
 using back_progr4.Models.User.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace back_progr4.Controllers
 {
@@ -68,6 +69,28 @@ namespace back_progr4.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, new HttpMessage(ex.Message));
             }
         }
+        [HttpGet("user")]
+        [Authorize]
+        [ProducesResponseType(typeof(List<ReservaDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(HttpMessage), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(HttpMessage), StatusCodes.Status500InternalServerError)]
+        async public Task<ActionResult<List<ReservaDTO>>> GetAllByUserId(int userId) 
+        {
+            try
+            {
+                var res = await _reservaService.GetAllByUserID(userId);
+                return Ok(res);
+            }
+            catch (HttpResponseError ex)
+            {
+                return StatusCode((int)ex.StatusCode, new HttpMessage(ex.Message));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new HttpMessage(ex.Message));
+            }
+        }
+
 
         [HttpGet("{id}")]
         [Authorize]
@@ -90,6 +113,11 @@ namespace back_progr4.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, new HttpMessage(ex.Message));
             }
         }
+        [HttpGet("user")]
+        [Authorize]
+        [ProducesResponseType(typeof(List<ReservaDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(HttpMessage), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(HttpMessage), StatusCodes.Status500InternalServerError)]
 
         [HttpPost]
         [Authorize]
