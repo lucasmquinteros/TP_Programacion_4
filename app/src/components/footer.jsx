@@ -4,7 +4,7 @@ export default function Footer() {
     <footer className="p-6 mx-auto lg:w-[90%]">
       <div className="flex justify-between items-center flex-col-reverse gap-3.5 md:flex-row">
         <div>
-          <p className="m-2 text-center md:text-left">
+          <p className="m-2 text-center md:text-left ">
             Teléfono:(+54)321-0987 | Email: info@skyjumppark.com
           </p>
           <p className="m-2 text-center md:text-left">

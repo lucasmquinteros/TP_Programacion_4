@@ -2,8 +2,60 @@ import { useState } from "react";
 import Footer from "../components/footer";
 import Header from "../components/header";
 import ReservationCard from "../components/reservation-card";
-import { useAuthStore } from "../store/auth-store";
+//prueba a ver si andan las cards
+//import { useAuthStore } from "../store/auth-store";
 
+/*PRUEBA DE CARDS CON RESERVACION*/
+const ReservasDeUsuario = {
+  user: {
+    id: "user-123",
+    nombre: "Ana Gómez",
+    email: "ana.gomez@ejemplo.com",
+    reservas: [
+      {
+        id: "res-001",
+        fechaReserva: "2025-11-15T10:00:00Z",
+        estado: "Confirmada",
+        turno: { hora: "10:00:00" },
+        servicio: "Corte de Pelo",
+        profesional: "Juan Pérez",
+      },
+      {
+        id: "res-002",
+        fechaReserva: "2025-11-12T15:30:00Z",
+        estado: "Confirmada",
+        turno: { hora: "15:30:00" },
+        servicio: "Manicura y Pedicura",
+        profesional: "María López",
+      },
+      {
+        id: "res-003",
+        fechaReserva: "2025-11-01T18:00:00Z",
+        estado: "Completo",
+        turno: { hora: "18:00:00" },
+        servicio: "Masaje Relajante",
+        profesional: "Carlos Ruiz",
+      },
+      {
+        id: "res-004",
+        fechaReserva: "2025-10-25T09:00:00Z",
+        estado: "Completo",
+        turno: { hora: "09:00:00" },
+        servicio: "Coloración y Balayage",
+        profesional: "Juan Pérez",
+      },
+      {
+        id: "res-005",
+        fechaReserva: "2025-10-10T11:00:00Z",
+        estado: "Cancelada",
+        turno: { hora: "11:00:00" },
+        servicio: "Corte de Pelo",
+        profesional: "María López",
+      },
+    ],
+  },
+};
+/*FIN DE PRUEBA*/
 export default function UserReservations() {
   const { user } = useAuthStore();
   const [filterStatus, setFilterStatus] = useState("Todas");
