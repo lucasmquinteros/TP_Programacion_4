@@ -1,15 +1,18 @@
-﻿using back_progr4.ENUMS;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace back_progr4.Models.Turno.DTOs
 {
-    public class TurnoDTO
+    public class CreateTurnoDTO
     {
-        public int Id { get; set; }
+        [Required]
         public DateTime DateTime { get; set; }
-        public TimeOnly HoraInicio { get; set; }
-        public TimeOnly HoraFin { get; set; }
-        public int CupoMax { get; set; }
+        [Required]
 
-        public string Estado { get; set; }
+        public TimeOnly HoraInicio { get; set; }
+        [Required]
+
+        public TimeOnly HoraFin { get; set; }
+
+        public int Capacidad { get; set; }
     }
 }

@@ -75,10 +75,12 @@ namespace back_progr4.Config
             // seed de roles
             modelBuilder.Entity<Role>().HasData(
                 new Role { Id = 1, Name = ROLE.USER },
-                new Role { Id = 2, Name = ROLE.ADMIN }
+                new Role { Id = 2, Name = ROLE.ADMIN },
+                new Role { Id = 3, Name = ROLE.MOD }
             );
 
-            
         }
+        
     }
+    
 }
