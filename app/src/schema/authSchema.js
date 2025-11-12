@@ -24,13 +24,13 @@ export const signUpSchema = z
       .string()
       .regex(
         /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@%+-]).{8,}$/,
-        "Caracteres necesarios 8: A-Z, a-z, @%+-"
+        "La contraseña debe tener al menos 8 caracteres, incluir una mayusula, una minuscula, un numero y un caracter especial (@%+-)"
       ),
     confirmPassword: z
       .string()
       .regex(
         /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@%+-]).{8,}$/,
-        "Caracteres necesarios 8: A-Z, a-z, @%+-"
+        "La contraseña debe tener al menos 8 caracteres, incluir una mayusula, una minuscula, un numero y un caracter especial (@%+-)"
       ),
   })
   .refine((data) => data.password === data.confirmPassword, {
