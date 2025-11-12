@@ -11,7 +11,7 @@ export default function Reservations() {
       <main className="flex flex-col items-center gap-10 md:gap-16 my-8">
         <div className="text-center">
           <h2 className="font-bold text-4xl">Encontrá tu próximo salto</h2>
-          <p>Selecciona un día para ver los turnos disponibles</p>
+          <p>Seleccioná un día para ver los turnos disponibles</p>
         </div>
         <Calendar />
       </main>

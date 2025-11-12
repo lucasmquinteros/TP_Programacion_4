@@ -126,7 +126,7 @@ export function Calendar() {
           </div>
         </>
       ) : (
-        <p className="text-gray-500">Seleccioná una fecha del calendario</p>
+        <p className="text-gray-500">↑ Seleccioná una fecha del calendario ↑</p>
       )}
     </div>
   );
