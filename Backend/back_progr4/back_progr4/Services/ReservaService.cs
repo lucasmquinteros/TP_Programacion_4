@@ -42,7 +42,12 @@ namespace back_progr4.Services
 
             return reservasDto;
         }
-        public async Task CreateOne()
+        public async Task<List<ReservaDTO>> GetAllByDay(DateTime date)
+        {
+            var reservas = await _db.Reservas.Where(r => r.FechaReserva.Date == date.Date).ToListAsync();
+            return _mapper.Map<List<ReservaDTO>>(reservas);
+        }
+        public async Task<ReservaDTO> CreateOne()
         {
 
         }
