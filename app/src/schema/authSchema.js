@@ -1,4 +1,4 @@
-import { z } from "zod";
+import * as z from "zod";
 
 // schema para el formulario SIGN IN:
 export const signInSchema = z.object({
