@@ -12,5 +12,7 @@ namespace back_progr4.Models.Reserva.DTOs
 
         public DateTime FechaReserva { get; set; }
         public string Estado { get; set; } = ESTADO.CONFIRMADA;
+
+        public double Precio { get; set; }
     }
 }

@@ -15,7 +15,11 @@ namespace back_progr4.Config
             CreateMap<bool?, bool>().ConvertUsing((src, dest) => src ?? dest);
             CreateMap<string?, string>().ConvertUsing((src, dest) => src ?? dest);
 
-            CreateMap<Reserva, ReservaDTO>();
+            //Reserva
+            CreateMap<Reserva, ReservaDTO>().ReverseMap();
+            CreateMap<CreateReservaDTO, ReservaDTO>().ReverseMap();
+            CreateMap<Reserva, CreateReservaDTO>();
+            CreateMap<UpdateReservaDTO, Reserva>().ReverseMap();
 
             // Auth
             CreateMap<RegisterDTO, User>();

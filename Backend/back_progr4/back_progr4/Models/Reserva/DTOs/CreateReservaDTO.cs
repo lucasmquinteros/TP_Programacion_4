@@ -22,5 +22,7 @@ namespace back_progr4.Models.Reserva.DTOs
         public int Cantidad {  get; set; }
 
         public string Estado = ESTADO.CONFIRMADA;
+
+        public double Precio { get; set; }
     }
 }
