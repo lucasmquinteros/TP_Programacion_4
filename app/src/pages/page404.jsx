@@ -6,7 +6,7 @@ export default function Page404() {
   return (
     <>
       <Header />
-      <main className="flex flex-col items-center justify-center h-[90vh] gap-4">
+      <main className=" bg-white flex flex-col items-center justify-center h-[90vh] gap-4">
         <img
           src="../public/404.jpg"
           alt="Página no encontrada"
