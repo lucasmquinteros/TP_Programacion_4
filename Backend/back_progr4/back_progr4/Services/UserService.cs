@@ -23,6 +23,15 @@ namespace back_progr4.Services
             _encoderServices = encoderServices;
             _roleServices = roleServices;
         }
+        public async Task<User> GetOneById(int id)
+        {
+            var user = await _repo.GetOneAsync(x => x.Id == id);
+            if (user == null)
+            {
+                throw new HttpResponseError(HttpStatusCode.NotFound, "User not found");
+            }
+            return user;
+        }
 
         async public Task<List<UserWithoutPassDTO>> GetAll()
         {

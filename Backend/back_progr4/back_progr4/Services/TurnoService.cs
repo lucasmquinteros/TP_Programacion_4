@@ -34,8 +34,23 @@ namespace back_progr4.Services
                 var turnos = await _db.Turnos.ToListAsync();
                 return _mapper.Map<List<TurnoDTO>>(turnos);
             }
+            public async Task ActualizarCupos(int id, int cantidadARestar)
+            {
+                var turno = await GetOneById(id);
+                if (turno.CuposDisponibles >= cantidadARestar)
+                {
+                    turno.CuposDisponibles -= cantidadARestar;
+                    _db.Turnos.Update(turno);
+                }
+                else
+                {
+                    throw new HttpResponseError(System.Net.HttpStatusCode.BadRequest, "No hay cupos disponibles para este turno");
+                }
+            }
 
             public async Task<TurnoDTO> CreateOne(CreateTurnoDTO createTurno)
+            {
+                try
             {
                 var turno = _mapper.Map<Turno>(createTurno);
 
@@ -43,6 +58,11 @@ namespace back_progr4.Services
                 await _db.SaveChangesAsync();
 
                 return _mapper.Map<TurnoDTO>(turno);
+            }
+                catch (Exception ex)
+                {
+                throw new HttpResponseError(System.Net.HttpStatusCode.InternalServerError, "Error al crear el turno: " + ex.Message);
+                }
             }
 
             public async Task<TurnoDTO> UpdateOne(int id, UpdateTurnoDTO updateTurno)
