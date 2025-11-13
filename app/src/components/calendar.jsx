@@ -2,15 +2,20 @@ import { useState } from "react";
 import { Datepicker } from "flowbite-react";
 import TurnCard from "./turn-card";
 import { useQuery } from "@tanstack/react-query";
+import { getTurnByDay } from "../services/turn";
 
 export function Calendar() {
   const [selectedDate, setSelectedDate] = useState(null);
 
   const { data: turns } = useQuery({
     queryKey: ["turnsByDay", selectedDate?.toISOString()],
-    queryFn: () => getTurnByDay(selectedDate.toISOString()),
+    queryFn: () => {
+      return getTurnByDay(selectedDate.toISOString());
+    },
     enabled: !!selectedDate,
   });
+
+  console.log(turns);
 
   return (
     <div className="flex flex-col items-center gap-4 lg:w-[90%]">
@@ -27,7 +32,7 @@ export function Calendar() {
           inline
           onChange={(date) => {
             setSelectedDate(date);
-            console.log(date.toISOString());
+            console.log(date?.toISOString());
           }}
         />
       </div>

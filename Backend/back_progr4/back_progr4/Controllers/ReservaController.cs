@@ -112,7 +112,7 @@ namespace back_progr4.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         [Authorize]
         [ProducesResponseType(typeof(ReservaDTO), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(HttpMessage), StatusCodes.Status400BadRequest)]

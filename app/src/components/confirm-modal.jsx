@@ -69,10 +69,8 @@ export default function ConfirmModal({ setModal, turn }) {
           </div>
           <div className="bg-gray-200 rounded-2xl p-2 px-3">
             <p>
-              {turn.horaInicio.hour.toString().padStart(2, "0")}:
-              {turn.horaInicio.minute.toString().padStart(2, "0")} -{" "}
-              {turn.horaFin.hour.toString().padStart(2, "0")}:
-              {turn.horaFin.minute.toString().padStart(2, "0")}
+              {turn.horaInicio.toString().padStart(2, "0")} -{" "}
+              {turn.horaFin.toString().padStart(2, "0")}
             </p>
           </div>
           <div className="bg-gray-200 rounded-2xl p-2 px-3">
