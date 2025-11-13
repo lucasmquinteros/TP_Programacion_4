@@ -11,11 +11,24 @@ namespace back_progr4.Services
     {
         private readonly AplicationDbContext _db;
         private readonly IMapper _mapper;
+        private readonly TurnoService _turnoService;
+        private readonly UserServices _userServices;
 
-        public ReservaService(AplicationDbContext db, IMapper mapper)
+        public ReservaService(AplicationDbContext db, IMapper mapper, TurnoService turnoService, UserServices userServices)
         {
             _mapper = mapper;
             _db = db;
+            _turnoService = turnoService;
+            _userServices = userServices;
+        }
+        public async Task<List<ReservaDTO>> GetReservasByUser(int userId)
+        {
+            var user = await _userServices.GetOneById(userId);
+            var reservas = await _db.Reservas
+                .Where(r => r.UserId == user.Id)
+                .Include(r => r.Turno) 
+                .ToListAsync();
+            return _mapper.Map<List<ReservaDTO>>(reservas);
         }
 
         public async Task<Reserva> GetOneById(int id)
@@ -49,13 +62,35 @@ namespace back_progr4.Services
         }
         public async Task<ReservaDTO> CreateOne(CreateReservaDTO createReserva)
         {
+            try
+            {
+
+            var turnoExiste = await _db.Turnos.AnyAsync(t => t.Id == createReserva.TurnoId);
+            if (!turnoExiste)
+            {
+                throw new HttpResponseError(System.Net.HttpStatusCode.NotFound,
+                    $"El TurnoId {createReserva.TurnoId} no existe.");
+            }
+
+            var userExiste = await _db.Users.AnyAsync(u => u.Id == createReserva.UserId); 
+            if (!userExiste)
+            {
+                throw new HttpResponseError(System.Net.HttpStatusCode.NotFound,
+                    $"El UserId {createReserva.UserId} no existe.");
+            }
+
+
             var reserva = _mapper.Map<Reserva>(createReserva);
 
+            await _turnoService.ActualizarCupos(createReserva.TurnoId, createReserva.Cantidad);
+
             await _db.Reservas.AddAsync(reserva);
-            await _db.SaveChangesAsync();
-
+            await _db.SaveChangesAsync(); 
             return _mapper.Map<ReservaDTO>(reserva);
-
+            } catch (Exception ex)
+            {
+                throw; // new HttpResponseError(System.Net.HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
         public async Task<ReservaDTO> UpdateOne(int id , UpdateReservaDTO updateReserva)
         {

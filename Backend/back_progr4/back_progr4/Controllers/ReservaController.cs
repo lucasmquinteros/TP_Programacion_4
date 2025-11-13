@@ -24,6 +24,27 @@ namespace back_progr4.Controllers
         {
             _reservaService = reservaService;
         }
+        [HttpGet("userRes")]
+        [Authorize(Roles = $"{ROLE.MOD}, {ROLE.ADMIN}")]
+        [ProducesResponseType(typeof(List<ReservaDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(HttpMessage), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(HttpMessage), StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<List<ReservaDTO>>> GetReservasByUser(int userId)
+        {
+            try
+            {
+                var res = await _reservaService.GetReservasByUser(userId);
+                return Ok(res);
+            }
+            catch (HttpResponseError ex)
+            {
+                return StatusCode((int)ex.StatusCode, new HttpMessage(ex.Message));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new HttpMessage(ex.Message));
+            }
+        }
 
         [HttpGet("today")]
         [Authorize(Roles = $"{ROLE.MOD}, {ROLE.ADMIN}")]

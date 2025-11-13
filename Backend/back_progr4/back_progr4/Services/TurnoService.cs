@@ -5,6 +5,7 @@ using back_progr4.Models.Turno;
 using back_progr4.Models.Turno.DTOs;
 using back_progr4.Models.Turno.DTOs.back_progr4.Models.Turno.DTOs;
 using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace back_progr4.Services
 {
@@ -29,13 +30,35 @@ namespace back_progr4.Services
                 return turno;
             }
 
+            public async Task<List<TurnoDTO>> GetTurnosByDay(DateTime dia)
+            {
+                var turnos = await _db.Turnos.Where(T => T.Fecha.Date == dia.Date).ToListAsync();
+                List<TurnoDTO> turnosDTO = _mapper.Map<List<TurnoDTO>>(turnos);
+                return turnosDTO;
+            }
+
             public async Task<List<TurnoDTO>> GetAll()
             {
                 var turnos = await _db.Turnos.ToListAsync();
                 return _mapper.Map<List<TurnoDTO>>(turnos);
             }
+            public async Task ActualizarCupos(int id, int cantidadARestar)
+            {
+                var turno = await GetOneById(id);
+                if (turno.CuposDisponibles >= cantidadARestar)
+                {
+                    turno.CuposDisponibles -= cantidadARestar;
+                    _db.Turnos.Update(turno);
+                }
+                else
+                {
+                    throw new HttpResponseError(System.Net.HttpStatusCode.BadRequest, "No hay cupos disponibles para este turno");
+                }
+            }
 
             public async Task<TurnoDTO> CreateOne(CreateTurnoDTO createTurno)
+            {
+                try
             {
                 var turno = _mapper.Map<Turno>(createTurno);
 
@@ -43,6 +66,11 @@ namespace back_progr4.Services
                 await _db.SaveChangesAsync();
 
                 return _mapper.Map<TurnoDTO>(turno);
+            }
+                catch (Exception ex)
+                {
+                throw new HttpResponseError(System.Net.HttpStatusCode.InternalServerError, "Error al crear el turno: " + ex.Message);
+                }
             }
 
             public async Task<TurnoDTO> UpdateOne(int id, UpdateTurnoDTO updateTurno)

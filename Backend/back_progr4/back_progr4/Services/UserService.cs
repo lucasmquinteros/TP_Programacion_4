@@ -6,6 +6,7 @@ using back_progr4.Models.User;
 using System.Net;
 using back_progr4.Repositories;
 using back_progr4.ENUMS;
+using Microsoft.EntityFrameworkCore;
 
 namespace back_progr4.Services
 {
@@ -23,6 +24,15 @@ namespace back_progr4.Services
             _encoderServices = encoderServices;
             _roleServices = roleServices;
         }
+        public async Task<User> GetOneById(int id)
+        {
+            var user = await _repo.GetOneAsync(x => x.Id == id);
+            if (user == null)
+            {
+                throw new HttpResponseError(HttpStatusCode.NotFound, "User not found");
+            }
+            return user;
+        }
 
         async public Task<List<UserWithoutPassDTO>> GetAll()
         {
@@ -37,7 +47,11 @@ namespace back_progr4.Services
                 throw new HttpResponseError(HttpStatusCode.BadRequest, "Email and Username are empty");
             }
 
-            var user = await _repo.GetOneAsync(x => x.Email == email || x.UserName == username);
+            var user = await _repo.GetOneAsync(
+                x => x.Email == email || x.UserName == username,
+                q => q.Include(u => u.Reservas)
+                      .Include(u => u.Roles)
+            );
             return user;
         }
 

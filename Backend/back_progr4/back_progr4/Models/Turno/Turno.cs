@@ -21,6 +21,8 @@ namespace back_progr4.Models.Turno
         // Cupo máximo de personas
         public int CupoMax { get; set; } = 50;
 
+        public int CuposDisponibles { get; set; } = 50;
+
         // Estado 
         public string Estado { get; set; } = ESTADO.DISPONIBLE;
 

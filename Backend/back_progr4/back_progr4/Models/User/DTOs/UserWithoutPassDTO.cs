@@ -1,4 +1,6 @@
-﻿namespace back_progr4.Models.User.DTOs
+﻿using back_progr4.Models.Reserva.DTOs;
+
+namespace back_progr4.Models.User.DTOs
 {
     public class UserWithoutPassDTO
     {
@@ -9,5 +11,7 @@
         public string Email { get; set; } = null!;
 
         public List<string> Roles { get; set; } = new();
+
+        public List<ReservaDTO> Reservas { get; set; } = new();
     }
 }

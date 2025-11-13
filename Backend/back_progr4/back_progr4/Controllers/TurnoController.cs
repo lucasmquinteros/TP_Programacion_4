@@ -131,5 +131,25 @@ namespace back_progr4.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, new HttpMessage(ex.Message));
             }
         }
+
+        [HttpGet("porDia")]
+        [Authorize]
+        [ProducesResponseType(typeof(List<TurnoDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(HttpMessage), StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<List<TurnoDTO>>> TurnosPorDia(DateTime dateTime)
+        {
+            try
+            {
+                var turnos = await _turnoService.GetTurnosByDay(dateTime);
+                return Ok(turnos);
+            }catch (HttpResponseError ex)
+            {
+                return StatusCode((int)ex.StatusCode, new HttpMessage(ex.Message));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new HttpMessage(ex.Message));
+            }
+        }
     }
 }
