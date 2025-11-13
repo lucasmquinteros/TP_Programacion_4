@@ -3,7 +3,7 @@ import Footer from "../components/footer";
 import Header from "../components/header";
 import ReservationCard from "../components/reservation-card";
 //prueba a ver si andan las cards
-//import { useAuthStore } from "../store/auth-store";
+import { useAuthStore } from "../store/auth-store";
 
 /*PRUEBA DE CARDS CON RESERVACION*/
 const ReservasDeUsuario = {
@@ -16,7 +16,8 @@ const ReservasDeUsuario = {
         id: "res-001",
         fechaReserva: "2025-11-15T10:00:00Z",
         estado: "Confirmada",
-        turno: { hora: "10:00:00" },
+        precio: 500,
+        cantidad: 6,
         servicio: "Corte de Pelo",
         profesional: "Juan Pérez",
       },
@@ -24,7 +25,8 @@ const ReservasDeUsuario = {
         id: "res-002",
         fechaReserva: "2025-11-12T15:30:00Z",
         estado: "Confirmada",
-        turno: { hora: "15:30:00" },
+        precio: 50000,
+        cantidad: 100,
         servicio: "Manicura y Pedicura",
         profesional: "María López",
       },
@@ -32,23 +34,17 @@ const ReservasDeUsuario = {
         id: "res-003",
         fechaReserva: "2025-11-01T18:00:00Z",
         estado: "Completo",
-        turno: { hora: "18:00:00" },
+        precio: 7500,
+        cantidad: 1,
         servicio: "Masaje Relajante",
         profesional: "Carlos Ruiz",
       },
       {
-        id: "res-004",
-        fechaReserva: "2025-10-25T09:00:00Z",
-        estado: "Completo",
-        turno: { hora: "09:00:00" },
-        servicio: "Coloración y Balayage",
-        profesional: "Juan Pérez",
-      },
-      {
         id: "res-005",
-        fechaReserva: "2025-10-10T11:00:00Z",
-        estado: "Cancelada",
-        turno: { hora: "11:00:00" },
+        fechaReserva: "2025-12-10T11:00:00Z",
+        estado: "Completo",
+        precio: 500,
+        cantidad: 2,
         servicio: "Corte de Pelo",
         profesional: "María López",
       },
@@ -62,17 +58,20 @@ export default function UserReservations() {
 
   let filteredReservations = [];
 
-  if (user?.reservas && user.reservas.length > 0) {
+  if (
+    ReservasDeUsuario.user?.reservas &&
+    ReservasDeUsuario.user.reservas.length > 0
+  ) {
     if (filterStatus === "Confirmada") {
-      filteredReservations = user.reservas.filter(
+      filteredReservations = ReservasDeUsuario.user.reservas.filter(
         (reserva) => reserva.estado === "Confirmada"
       );
     } else if (filterStatus === "Completo") {
-      filteredReservations = user.reservas.filter(
+      filteredReservations = ReservasDeUsuario.user.reservas.filter(
         (reserva) => reserva.estado === "Completo"
       );
     } else if (filterStatus === "Todas") {
-      filteredReservations = user.reservas.filter(
+      filteredReservations = ReservasDeUsuario.user.reservas.filter(
         (reserva) =>
           reserva.estado === "Confirmada" || reserva.estado === "Completo"
       );
@@ -84,9 +83,11 @@ export default function UserReservations() {
   }
 
   const confirmadas =
-    user?.reservas?.filter((r) => r.estado === "Confirmada").length || 0;
+    ReservasDeUsuario.user?.reservas?.filter((r) => r.estado === "Confirmada")
+      .length || 0;
   const completos =
-    user?.reservas?.filter((r) => r.estado === "Completo").length || 0;
+    ReservasDeUsuario.user?.reservas?.filter((r) => r.estado === "Completo")
+      .length || 0;
 
   return (
     <>
@@ -104,7 +105,7 @@ export default function UserReservations() {
                   : "bg-gray-200 text-gray-800 hover:bg-gray-300"
               }`}
             >
-              Todas ({confirmadas + completos})
+              Todas ({confirmadas && completos})
             </button>
             <button
               onClick={() => setFilterStatus("Confirmada")}
@@ -134,8 +135,8 @@ export default function UserReservations() {
                   ? "Todavía no tienes ninguna reserva"
                   : `Todavía no tienes ninguna reserva ${
                       filterStatus === "Confirmada"
-                        ? "confirmadas"
-                        : "completadas"
+                        ? "confirmada"
+                        : "completada"
                     }`}
               </p>
             </div>
