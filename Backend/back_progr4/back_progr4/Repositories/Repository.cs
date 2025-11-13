@@ -2,13 +2,17 @@
 using System.Linq.Expressions;
 using back_progr4.Config;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace back_progr4.Repositories
 {
     public interface IRepository<T> where T : class
     {
-        Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null);
-        Task<T> GetOneAsync(Expression<Func<T, bool>>? filter = null);
+        Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null);
+        Task<T> GetOneAsync(Expression<Func<T, bool>>? filter = null,
+             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null
+            );
         Task CreateOneAsync(T entity);
         Task UpdateOneAsync(T entity);
         Task DeleteOneAsync(T entity);
@@ -37,24 +41,33 @@ namespace back_progr4.Repositories
             await SaveAsync();
         }
 
-        async public Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null)
+        async public Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
         {
             IQueryable<T> query = dbSet;
             if (filter != null)
             {
                 query = query.Where(filter);
+            }
+            if (include != null)
+            {
+                query = include(query);
             }
             return await query.ToListAsync();
         }
 
-        async public Task<T> GetOneAsync(Expression<Func<T, bool>>? filter = null)
+        public async Task<T> GetOneAsync(
+        Expression<Func<T, bool>> predicate,
+        Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null
+    )
         {
             IQueryable<T> query = dbSet;
-            if (filter != null)
+
+            if (include != null)
             {
-                query = query.Where(filter);
+                query = include(query); 
             }
-            return await query.FirstOrDefaultAsync();
+
+            return await query.FirstOrDefaultAsync(predicate);
         }
 
         async public Task UpdateOneAsync(T entity)

@@ -25,11 +25,11 @@ namespace back_progr4.Config
             CreateMap<CreateReservaDTO, Reserva>()
                 .ForMember(
                     dest => dest.FechaReserva,
-                    opt => opt.MapFrom(src => DateTime.Now) // El servidor ESTABLECE la fecha
+                    opt => opt.MapFrom(src => DateTime.Now) 
                 )
                 .ForMember(
                     dest => dest.Estado,
-                    opt => opt.MapFrom(src => ESTADO.CONFIRMADA) // El servidor ESTABLECE el estado inicial
+                    opt => opt.MapFrom(src => ESTADO.CONFIRMADA) 
                 );
             CreateMap<Reserva, CreateReservaDTO>();
             CreateMap<UpdateReservaDTO, Reserva>().ReverseMap();
@@ -37,7 +37,17 @@ namespace back_progr4.Config
 
 
             //Turnos
-            CreateMap<Turno, TurnoDTO>().ReverseMap();
+            CreateMap<Turno, TurnoDTO>()
+    .ForMember(
+        dest => dest.DateTime, 
+        opt => opt.MapFrom(src => src.Fecha)
+    );
+
+            CreateMap<TurnoDTO, Turno>()
+                .ForMember(
+                    dest => dest.Fecha, 
+                    opt => opt.MapFrom(src => src.DateTime) 
+                );
             CreateMap<CreateTurnoDTO, Turno>()
                 .ForMember(
                     dest => dest.Fecha,
@@ -66,7 +76,8 @@ namespace back_progr4.Config
             CreateMap<User, UserWithoutPassDTO>().ForMember(
                 dest => dest.Roles,
                 opt => opt.MapFrom(e => e.Roles.Select(x => x.Name).ToList())
-            ).ReverseMap();
+            ).ForMember(destinationMember: dest => dest.Reservas, opt => opt.MapFrom(src => src.Reservas))
+                .ReverseMap();
         }
     }
 }

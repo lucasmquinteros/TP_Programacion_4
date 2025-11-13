@@ -5,6 +5,7 @@ using back_progr4.Models.Turno;
 using back_progr4.Models.Turno.DTOs;
 using back_progr4.Models.Turno.DTOs.back_progr4.Models.Turno.DTOs;
 using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace back_progr4.Services
 {
@@ -27,6 +28,13 @@ namespace back_progr4.Services
                     throw new HttpResponseError(System.Net.HttpStatusCode.NotFound, "No se encontro o no existe el turno");
                 }
                 return turno;
+            }
+
+            public async Task<List<TurnoDTO>> GetTurnosByDay(DateTime dia)
+            {
+                var turnos = await _db.Turnos.Where(T => T.Fecha.Date == dia.Date).ToListAsync();
+                List<TurnoDTO> turnosDTO = _mapper.Map<List<TurnoDTO>>(turnos);
+                return turnosDTO;
             }
 
             public async Task<List<TurnoDTO>> GetAll()
