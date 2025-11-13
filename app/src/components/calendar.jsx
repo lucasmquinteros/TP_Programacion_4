@@ -3,19 +3,18 @@ import { Datepicker } from "flowbite-react";
 import TurnCard from "./turn-card";
 import { useQuery } from "@tanstack/react-query";
 import { getTurnByDay } from "../services/turn";
+import { LoadingSpinner } from "./loading-spinner";
 
 export function Calendar() {
   const [selectedDate, setSelectedDate] = useState(null);
 
-  const { data: turns } = useQuery({
+  const { data: turns, isPending } = useQuery({
     queryKey: ["turnsByDay", selectedDate?.toISOString()],
     queryFn: () => {
       return getTurnByDay(selectedDate.toISOString());
     },
     enabled: !!selectedDate,
   });
-
-  console.log(turns);
 
   return (
     <div className="flex flex-col items-center gap-4 lg:w-[90%]">
@@ -54,6 +53,7 @@ export function Calendar() {
               <TurnCard key={t.id} turn={t}></TurnCard>
             ))}
           </div>
+          {isPending && <LoadingSpinner />}
         </>
       ) : (
         <p className="text-gray-500">↑ Seleccioná una fecha del calendario ↑</p>

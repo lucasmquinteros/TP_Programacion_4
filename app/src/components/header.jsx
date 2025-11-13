@@ -253,7 +253,9 @@ export default function Header() {
               Tus Reservas
             </Link>
             {user?.roles?.includes("Admin") && (
-              <Link href="/admin">Estadisticas</Link>
+              <Link href="/admin" className="cursor-pointer">
+                Estadisticas
+              </Link>
             )}
           </nav>
           <button

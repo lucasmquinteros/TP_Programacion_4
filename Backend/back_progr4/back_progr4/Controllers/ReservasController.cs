@@ -16,11 +16,11 @@ namespace back_progr4.Controllers
 {
     [Route("api/reservas")]
     [ApiController]
-    public class ReservaController : ControllerBase
+    public class ReservasController : ControllerBase
     {
         private readonly ReservaService _reservaService;
 
-        public ReservaController(ReservaService reservaService)
+        public ReservasController(ReservaService reservaService)
         {
             _reservaService = reservaService;
         }
