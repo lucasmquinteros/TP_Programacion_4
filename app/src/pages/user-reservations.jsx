@@ -2,76 +2,34 @@ import { useState } from "react";
 import Footer from "../components/footer";
 import Header from "../components/header";
 import ReservationCard from "../components/reservation-card";
-//prueba a ver si andan las cards
 import { useAuthStore } from "../store/auth-store";
+import { useLocation } from "wouter";
 
-/*PRUEBA DE CARDS CON RESERVACION*/
-const ReservasDeUsuario = {
-  user: {
-    id: "user-123",
-    nombre: "Ana Gómez",
-    email: "ana.gomez@ejemplo.com",
-    reservas: [
-      {
-        id: "res-001",
-        fechaReserva: "2025-11-15T10:00:00Z",
-        estado: "Confirmada",
-        precio: 500,
-        cantidad: 6,
-        servicio: "Corte de Pelo",
-        profesional: "Juan Pérez",
-      },
-      {
-        id: "res-002",
-        fechaReserva: "2025-11-12T15:30:00Z",
-        estado: "Confirmada",
-        precio: 50000,
-        cantidad: 100,
-        servicio: "Manicura y Pedicura",
-        profesional: "María López",
-      },
-      {
-        id: "res-003",
-        fechaReserva: "2025-11-01T18:00:00Z",
-        estado: "Completo",
-        precio: 7500,
-        cantidad: 1,
-        servicio: "Masaje Relajante",
-        profesional: "Carlos Ruiz",
-      },
-      {
-        id: "res-005",
-        fechaReserva: "2025-12-10T11:00:00Z",
-        estado: "Completo",
-        precio: 500,
-        cantidad: 2,
-        servicio: "Corte de Pelo",
-        profesional: "María López",
-      },
-    ],
-  },
-};
-/*FIN DE PRUEBA*/
 export default function UserReservations() {
-  const { user } = useAuthStore();
+  const { user, isAuthenticated } = useAuthStore();
   const [filterStatus, setFilterStatus] = useState("Todas");
+  const [, setLocation] = useLocation();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setLocation("/sign-in", { replace: true });
+      return;
+    }
+  }, [isAuthenticated, setLocation]);
 
   let filteredReservations = [];
 
-  if (
-    ReservasDeUsuario.user?.reservas &&
-    ReservasDeUsuario.user.reservas.length > 0
-  ) {
+  if (user?.reservas && user.reservas.length > 0) {
     if (filterStatus === "Confirmada") {
-      filteredReservations = ReservasDeUsuario.user.reservas.filter(
+      filteredReservations = user.reservas.filter(
         (reserva) => reserva.estado === "Confirmada"
       );
     } else if (filterStatus === "Completo") {
-      filteredReservations = ReservasDeUsuario.user.reservas.filter(
+      filteredReservations = user.reservas.filter(
         (reserva) => reserva.estado === "Completo"
       );
     } else if (filterStatus === "Todas") {
-      filteredReservations = ReservasDeUsuario.user.reservas.filter(
+      filteredReservations = user.reservas.filter(
         (reserva) =>
           reserva.estado === "Confirmada" || reserva.estado === "Completo"
       );
@@ -83,11 +41,9 @@ export default function UserReservations() {
   }
 
   const confirmadas =
-    ReservasDeUsuario.user?.reservas?.filter((r) => r.estado === "Confirmada")
-      .length || 0;
+    user?.reservas?.filter((r) => r.estado === "Confirmada").length || 0;
   const completos =
-    ReservasDeUsuario.user?.reservas?.filter((r) => r.estado === "Completo")
-      .length || 0;
+    user?.reservas?.filter((r) => r.estado === "Completo").length || 0;
 
   return (
     <>

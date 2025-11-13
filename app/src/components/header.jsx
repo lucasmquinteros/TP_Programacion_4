@@ -37,36 +37,36 @@ export default function Header() {
               <>
                 <a
                   href="#"
-                  className="cursor-pointer relative 
-                     after:content-[''] after:absolute after:bottom-0 after:left-0 
-                     after:w-0 hover:after:w-full after:h-[2px] after:bg-[#ffa500] 
+                  className="cursor-pointer relative
+                     after:content-[''] after:absolute after:bottom-0 after:left-0
+                     after:w-0 hover:after:w-full after:h-0.5 after:bg-[#ffa500]
                      after:transition-all after:duration-300"
                 >
                   Inicio
                 </a>{" "}
                 <a
                   href="#activities"
-                  className="cursor-pointer relative 
-                 after:content-[''] after:absolute after:bottom-0 after:left-0 
-                 after:w-0 hover:after:w-full after:h-[2px] after:bg-[#ffa500] 
+                  className="cursor-pointer relative
+                 after:content-[''] after:absolute after:bottom-0 after:left-0
+                 after:w-0 hover:after:w-full after:h-0.5 after:bg-[#ffa500]
                  after:transition-all after:duration-300"
                 >
                   Actividades
                 </a>
                 <Link
                   href="/reservations"
-                  className="cursor-pointer relative 
-                 after:content-[''] after:absolute after:bottom-0 after:left-0 
-                 after:w-0 hover:after:w-full after:h-[2px] after:bg-[#ffa500] 
+                  className="cursor-pointer relative
+                 after:content-[''] after:absolute after:bottom-0 after:left-0
+                 after:w-0 hover:after:w-full after:h-0.5 after:bg-[#ffa500]
                  after:transition-all after:duration-300"
                 >
                   Reservar
                 </Link>
                 <a
                   href="#contact"
-                  className="cursor-pointer relative 
-                 after:content-[''] after:absolute after:bottom-0 after:left-0 
-                 after:w-0 hover:after:w-full after:h-[2px] after:bg-[#ffa500] 
+                  className="cursor-pointer relative
+                 after:content-[''] after:absolute after:bottom-0 after:left-0
+                 after:w-0 hover:after:w-full after:h-0.5 after:bg-[#ffa500]
                  after:transition-all after:duration-300"
                 >
                   Contacto
@@ -76,36 +76,36 @@ export default function Header() {
               <>
                 <Link
                   href="/"
-                  className="cursor-pointer relative 
-                 after:content-[''] after:absolute after:bottom-0 after:left-0 
-                 after:w-0 hover:after:w-full after:h-[2px] after:bg-[#ffa500] 
+                  className="cursor-pointer relative
+                 after:content-[''] after:absolute after:bottom-0 after:left-0
+                 after:w-0 hover:after:w-full after:h-0.5 after:bg-[#ffa500]
                  after:transition-all after:duration-300"
                 >
                   Inicio
                 </Link>
                 <Link
                   href="/"
-                  className="cursor-pointer relative 
-                 after:content-[''] after:absolute after:bottom-0 after:left-0 
-                 after:w-0 hover:after:w-full after:h-[2px] after:bg-[#ffa500] 
+                  className="cursor-pointer relative
+                 after:content-[''] after:absolute after:bottom-0 after:left-0
+                 after:w-0 hover:after:w-full after:h-0.5 after:bg-[#ffa500]
                  after:transition-all after:duration-300"
                 >
                   Actividades
                 </Link>
                 <Link
                   href="/reservations"
-                  className="cursor-pointer relative 
-                 after:content-[''] after:absolute after:bottom-0 after:left-0 
-                 after:w-0 hover:after:w-full after:h-[2px] after:bg-[#ffa500] 
+                  className="cursor-pointer relative
+                 after:content-[''] after:absolute after:bottom-0 after:left-0
+                 after:w-0 hover:after:w-full after:h-0.5 after:bg-[#ffa500]
                  after:transition-all after:duration-300"
                 >
                   Reservar
                 </Link>
                 <Link
                   href="/"
-                  className="cursor-pointer relative 
-                 after:content-[''] after:absolute after:bottom-0 after:left-0 
-                 after:w-0 hover:after:w-full after:h-[2px] after:bg-[#ffa500] 
+                  className="cursor-pointer relative
+                 after:content-[''] after:absolute after:bottom-0 after:left-0
+                 after:w-0 hover:after:w-full after:h-0.5 after:bg-[#ffa500]
                  after:transition-all after:duration-300"
                 >
                   Contacto
@@ -130,6 +130,7 @@ export default function Header() {
                 onClick={() => {
                   signOut();
                   logout();
+                  setProfile(false);
                 }}
               >
                 Cerrar sesión
@@ -251,7 +252,7 @@ export default function Header() {
             <Link href="/user-reservations" className="cursor-pointer">
               Tus Reservas
             </Link>
-            {!user?.roles.contains("ADMIN") && (
+            {user?.roles?.includes("Admin") && (
               <Link href="/admin">Estadisticas</Link>
             )}
           </nav>

@@ -1,93 +1,16 @@
 import { useState } from "react";
 import { Datepicker } from "flowbite-react";
 import TurnCard from "./turn-card";
+import { useQuery } from "@tanstack/react-query";
 
 export function Calendar() {
   const [selectedDate, setSelectedDate] = useState(null);
 
-  // const { data: turns } = useQuery({
-  //   queryKey: ["turnsByDay"],
-  //   queryFn: () => getTurnByDay(selectedDate.toISOString()),
-  //   enabled: !!selectedDate,
-  // });
-
-  const turns = [
-    {
-      id: 1,
-      dateTime: "2025-11-12T20:46:35.034Z",
-      horaInicio: {
-        hour: 9,
-        minute: 0,
-        second: 0,
-        millisecond: 0,
-        microsecond: 0,
-        nanosecond: 0,
-        ticks: 0,
-      },
-      horaFin: {
-        hour: 10,
-        minute: 30,
-        second: 0,
-        millisecond: 0,
-        microsecond: 0,
-        nanosecond: 0,
-        ticks: 0,
-      },
-      cupoMax: 10,
-      cuposDisponibles: 0,
-      estado: "Disponible",
-    },
-    {
-      id: 2,
-      dateTime: "2025-11-12T22:00:00.000Z",
-      horaInicio: {
-        hour: 11,
-        minute: 0,
-        second: 0,
-        millisecond: 0,
-        microsecond: 0,
-        nanosecond: 0,
-        ticks: 0,
-      },
-      horaFin: {
-        hour: 12,
-        minute: 0,
-        second: 0,
-        millisecond: 0,
-        microsecond: 0,
-        nanosecond: 0,
-        ticks: 0,
-      },
-      cupoMax: 8,
-      cuposDisponibles: 2,
-      estado: "Ocupado",
-    },
-    {
-      id: 3,
-      dateTime: "2025-11-12T23:30:00.000Z",
-      horaInicio: {
-        hour: 13,
-        minute: 0,
-        second: 0,
-        millisecond: 0,
-        microsecond: 0,
-        nanosecond: 0,
-        ticks: 0,
-      },
-      horaFin: {
-        hour: 14,
-        minute: 30,
-        second: 0,
-        millisecond: 0,
-        microsecond: 0,
-        nanosecond: 0,
-        ticks: 0,
-      },
-      cupoMax: 12,
-      cuposDisponibles: 12,
-      estado: "Libre",
-    },
-  ];
+  const { data: turns } = useQuery({
+    queryKey: ["turnsByDay", selectedDate?.toISOString()],
+    queryFn: () => getTurnByDay(selectedDate.toISOString()),
+    enabled: !!selectedDate,
+  });
 
   return (
     <div className="flex flex-col items-center gap-4 lg:w-[90%]">
@@ -110,7 +33,7 @@ export function Calendar() {
       </div>
       {selectedDate ? (
         <>
-          <p className="text-gray-900 font-semibold text-center">
+          <p className="text-gray-900 font-semibold text-center text-2xl">
             Fecha seleccionada:{" "}
             <span className="font-semibold">
               {selectedDate.toLocaleDateString("es-AR", {

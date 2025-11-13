@@ -26,3 +26,14 @@ export const getReservationById = async (id) => {
 
   return res.data;
 };
+
+export const createReservation = async (reserva) => {
+  const res = await axios.post(`${url}/reservas/`, reserva, {
+    withCredentials: true,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  return res.data;
+};

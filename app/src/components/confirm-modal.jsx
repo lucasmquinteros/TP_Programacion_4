@@ -1,16 +1,52 @@
-import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { useAuthStore } from "../store/auth-store";
+import { createReservation } from "../services/reservation";
 
 export default function ConfirmModal({ setModal, turn }) {
   const [count, setCount] = useState(0);
+  const { user } = useAuthStore();
 
-  const increaseCount = () => {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
+  const mutation = useMutation({
+    mutationKey: ["createReservation"],
+    mutationFn: createReservation,
+    onSuccess: () => {
+      alert("Reserva confirmada ✅");
+      setModal(false);
+    },
+    onError: () => {
+      alert("Error al crear la reserva ❌");
+    },
+  });
+
+  const decreaseCount = () => {
     if (count === 0) return;
     setCount(count - 1);
   };
-  const decreaseCount = () => {
+  const increaseCount = () => {
     if (count === turn.cuposDisponibles) return;
     setCount(count + 1);
   };
+
+  const handleConfirm = () => {
+    if (count <= 0) return alert("Selecciona al menos 1 entrada");
+
+    const reserva = {
+      userId: user.id,
+      turnId: turn.id,
+      cantidad: count,
+    };
+
+    mutation.mutate(reserva);
+  };
+
   const formatedDate = new Date(turn.dateTime).toLocaleDateString("es-AR", {
     weekday: "long",
     day: "numeric",
@@ -49,7 +85,7 @@ export default function ConfirmModal({ setModal, turn }) {
             <p>Cantidad de entradas</p>
             <div className="flex justify-between gap-1.5 md:gap-3">
               <button
-                onClick={increaseCount}
+                onClick={decreaseCount}
                 className="rounded-[50%] bg-gray-400 w-6 h-6 m-auto flex justify-center items-center cursor-pointer "
               >
                 <img
@@ -60,7 +96,7 @@ export default function ConfirmModal({ setModal, turn }) {
               </button>
               <span className="font-semibold">{count}</span>
               <button
-                onClick={() => decreaseCount(count + 1)}
+                onClick={increaseCount}
                 className="rounded-[50%] bg-gray-400 w-6 h-6 m-auto flex justify-center items-center cursor-pointer"
               >
                 <img
@@ -74,6 +110,7 @@ export default function ConfirmModal({ setModal, turn }) {
           <span className="text-gray-500">
             Máximo {turn.cuposDisponibles} entradas.
           </span>
+          <p>Total a pagar: ${turn.precio * count}</p>
         </div>
         <div className="flex justify-around mt-3">
           <button
@@ -82,8 +119,11 @@ export default function ConfirmModal({ setModal, turn }) {
           >
             Cancelar
           </button>
-          <button className="font-semibold bg-[#0DA6F2] text-white rounded-2xl p-3 px-5 cursor-pointer">
-            Confirmar
+          <button
+            onClick={handleConfirm}
+            className="font-semibold bg-[#0DA6F2] text-white rounded-2xl p-3 px-5 cursor-pointer"
+          >
+            {mutation.isPending ? "Confirmando..." : "Confirmar"}
           </button>
         </div>
       </div>
