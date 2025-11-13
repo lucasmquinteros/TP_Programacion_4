@@ -35,31 +35,79 @@ export default function Header() {
           <nav className="flex gap-5 lg:gap-12">
             {location === "/" ? (
               <>
-                <a href="#" className="cursor-pointer">
+                <a
+                  href="#"
+                  className="cursor-pointer relative 
+                     after:content-[''] after:absolute after:bottom-0 after:left-0 
+                     after:w-0 hover:after:w-full after:h-[2px] after:bg-[#ffa500] 
+                     after:transition-all after:duration-300"
+                >
                   Inicio
                 </a>{" "}
-                <a href="#activities" className="cursor-pointer">
+                <a
+                  href="#activities"
+                  className="cursor-pointer relative 
+                 after:content-[''] after:absolute after:bottom-0 after:left-0 
+                 after:w-0 hover:after:w-full after:h-[2px] after:bg-[#ffa500] 
+                 after:transition-all after:duration-300"
+                >
                   Actividades
                 </a>
-                <Link href="/reservations" className="cursor-pointer">
+                <Link
+                  href="/reservations"
+                  className="cursor-pointer relative 
+                 after:content-[''] after:absolute after:bottom-0 after:left-0 
+                 after:w-0 hover:after:w-full after:h-[2px] after:bg-[#ffa500] 
+                 after:transition-all after:duration-300"
+                >
                   Reservar
                 </Link>
-                <a href="#contact" className="cursor-pointer">
+                <a
+                  href="#contact"
+                  className="cursor-pointer relative 
+                 after:content-[''] after:absolute after:bottom-0 after:left-0 
+                 after:w-0 hover:after:w-full after:h-[2px] after:bg-[#ffa500] 
+                 after:transition-all after:duration-300"
+                >
                   Contacto
                 </a>
               </>
             ) : (
               <>
-                <Link href="/" className="cursor-pointer">
+                <Link
+                  href="/"
+                  className="cursor-pointer relative 
+                 after:content-[''] after:absolute after:bottom-0 after:left-0 
+                 after:w-0 hover:after:w-full after:h-[2px] after:bg-[#ffa500] 
+                 after:transition-all after:duration-300"
+                >
                   Inicio
                 </Link>
-                <Link href="/" className="cursor-pointer">
+                <Link
+                  href="/"
+                  className="cursor-pointer relative 
+                 after:content-[''] after:absolute after:bottom-0 after:left-0 
+                 after:w-0 hover:after:w-full after:h-[2px] after:bg-[#ffa500] 
+                 after:transition-all after:duration-300"
+                >
                   Actividades
                 </Link>
-                <Link href="/reservations" className="cursor-pointer">
+                <Link
+                  href="/reservations"
+                  className="cursor-pointer relative 
+                 after:content-[''] after:absolute after:bottom-0 after:left-0 
+                 after:w-0 hover:after:w-full after:h-[2px] after:bg-[#ffa500] 
+                 after:transition-all after:duration-300"
+                >
                   Reservar
                 </Link>
-                <Link href="/" className="cursor-pointer">
+                <Link
+                  href="/"
+                  className="cursor-pointer relative 
+                 after:content-[''] after:absolute after:bottom-0 after:left-0 
+                 after:w-0 hover:after:w-full after:h-[2px] after:bg-[#ffa500] 
+                 after:transition-all after:duration-300"
+                >
                   Contacto
                 </Link>
               </>
