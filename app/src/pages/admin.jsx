@@ -72,7 +72,7 @@ export default function Admin() {
             <h4 className="font-semibold text-gray-700">
               Reservas el día de hoy
             </h4>
-            <span className="text-[#FFA500]">turnsToday</span>
+            <span className="text-[#FFA500]">{turnsToday}</span>
           </div>
         </div>
       </main>
