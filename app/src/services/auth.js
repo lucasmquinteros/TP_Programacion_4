@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useAuthStore } from "../store/auth-store";
 
 const { VITE_API_URL: url } = import.meta.env;
 
@@ -43,4 +42,12 @@ export const signOut = async () => {
   await axios.post(`${url}/auth/logout`, {
     withCredentials: true,
   });
+};
+
+export const getUsers = async () => {
+  const res = await axios.get(`${url}/auth/users`, {
+    withCredentials: true,
+  });
+
+  return res.data;
 };

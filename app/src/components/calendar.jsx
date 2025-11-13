@@ -6,9 +6,11 @@ export function Calendar() {
   const [selectedDate, setSelectedDate] = useState(null);
 
   // const { data: turns } = useQuery({
-  //   queryKey: ["turns"],
-  //   queryFn: getTurnByDay,
+  //   queryKey: ["turnsByDay"],
+  //   queryFn: () => getTurnByDay(selectedDate.toISOString()),
+  //   enabled: !!selectedDate,
   // });
+
   const turns = [
     {
       id: 1,

@@ -89,7 +89,7 @@ export default function Header() {
             </div>
           ) : (
             <div className="flex gap-4">
-              {!isAuthenticated ? (
+              {isAuthenticated ? (
                 <button onClick={() => setProfile(true)}>
                   <img
                     className="w-8 h-8 cursor-pointer md:hidden"
@@ -195,11 +195,17 @@ export default function Header() {
             ✕
           </button>
           <nav className="flex flex-col gap-6 text-lg mt-16">
-            <h5>Hola, {user?.UserName}!</h5>
+            <div>
+              <h5>Hola, {user?.userName}!</h5>
+              <span className="text-gray-500 text-[16px]">{user?.email}</span>
+            </div>
             <hr className="w-[300%]" />
             <Link href="/user-reservations" className="cursor-pointer">
               Tus Reservas
             </Link>
+            {!user?.roles.contains("ADMIN") && (
+              <Link href="/admin">Estadisticas</Link>
+            )}
           </nav>
           <button
             href="/sign-up"

@@ -5,6 +5,7 @@ import { lazy, Suspense, useEffect } from "react";
 import { useAuthStore } from "./store/auth-store.js";
 import { checkAuth, signOut } from "./services/auth.js";
 import { LoadingSpinner } from "./components/loading-spinner.jsx";
+import Admin from "./pages/admin.jsx";
 
 const Home = lazy(() => import("./pages/home.jsx"));
 const Page404 = lazy(() => import("./pages/page404.jsx"));
@@ -45,6 +46,9 @@ export default function App() {
           </Route>
           <Route path="user-reservations">
             <UserReservations />
+          </Route>
+          <Route path="admin">
+            <Admin />
           </Route>
 
           <Route>
