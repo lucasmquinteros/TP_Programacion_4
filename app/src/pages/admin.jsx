@@ -13,16 +13,16 @@ export default function Admin() {
   const { user, isAuthenticated } = useAuthStore();
   const [, setLocation] = useLocation();
 
-  //   useEffect(() => {
-  //     if (!isAuthenticated) {
-  //       setLocation("/sign-in", { replace: true });
-  //       return;
-  //     }
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setLocation("/sign-in", { replace: true });
+      return;
+    }
 
-  //     if (!user.roles?.includes("Admin")) {
-  //       setLocation("/", { replace: true });
-  //     }
-  //   }, [user, setLocation]);
+    if (!user.roles?.includes("Admin")) {
+      setLocation("/", { replace: true });
+    }
+  }, [user, setLocation]);
 
   const { data: users } = useQuery({
     queryKey: ["users"],
