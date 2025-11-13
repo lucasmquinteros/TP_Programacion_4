@@ -73,11 +73,16 @@ namespace back_progr4.Config
             // Auth
             CreateMap<RegisterDTO, User>();
 
-            CreateMap<User, UserWithoutPassDTO>().ForMember(
-                dest => dest.Roles,
-                opt => opt.MapFrom(e => e.Roles.Select(x => x.Name).ToList())
-            ).ForMember(destinationMember: dest => dest.Reservas, opt => opt.MapFrom(src => src.Reservas))
+            CreateMap<User, UserWithoutPassDTO>()
+                .ForMember(
+                    dest => dest.Roles,
+                    opt => opt.MapFrom(e => e.Roles.Select(x => x.Name).ToList())
+                )
+                .ForMember(
+                    destinationMember: dest => dest.Reservas,
+                    opt => opt.MapFrom(src => src.Reservas)
+                )
                 .ReverseMap();
-        }
-    }
+                    }
+                }
 }
