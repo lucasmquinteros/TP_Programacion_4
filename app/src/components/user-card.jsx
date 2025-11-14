@@ -21,7 +21,6 @@ export default function UserCard({ user }) {
       queryClient.invalidateQueries(["users"]);
       alert("Usuario eliminado correctamente");
       setOpen(false);
-      location.reload();
     },
     onError: (err) => {
       alert("Error al eliminar usuario");
@@ -35,7 +34,7 @@ export default function UserCard({ user }) {
 
   return (
     <>
-      <article className="flex items-center justify-between gap-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition m-4">
+      <article className="flex items-center justify-between gap-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition m-4 border border-gray-300">
         <div className="flex items-center gap-4 flex-1 min-w-0">
           <div className="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg bg-linear-to-br from-green-400 to-blue-500">
             {initials || "U"}

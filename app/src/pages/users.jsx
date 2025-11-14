@@ -31,7 +31,7 @@ export default function Users() {
   return (
     <>
       <Header />
-      <main>
+      <main className="lg:w-[70%] mx-auto">
         {users?.map((u) => (
           <UserCard key={u.id} user={u} />
         ))}
