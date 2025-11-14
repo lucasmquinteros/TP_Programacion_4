@@ -66,6 +66,14 @@ export default function ConfirmModal({ setModal, turn }) {
 
   return (
     <div className="fixed inset-0 flex justify-center items-center z-40">
+      {successMessage && (
+        <div
+          className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-100"
+          role="alert"
+        >
+          <span className="font-medium">Reserva Confirmada ✅</span>
+        </div>
+      )}
       <div className="bg-white relative w-[90%] mx-auto flex flex-col gap-4 p-5 rounded-3xl shadow-2xl md:w-[50%] md:p-9 md:text-[20px]">
         <button
           onClick={() => setModal(false)}
@@ -74,14 +82,6 @@ export default function ConfirmModal({ setModal, turn }) {
           ✕
         </button>
         <h3 className="text-2xl font-semibold">Confirma tu Reserva</h3>
-        {successMessage && (
-          <div
-            className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-100"
-            role="alert"
-          >
-            <span className="font-medium">Reserva Confirmada ✅</span>
-          </div>
-        )}
         <div className="flex flex-col gap-3 border-b pb-3 border-gray-400">
           <div className="bg-gray-200 rounded-2xl p-2 px-3">
             <p>{formatedDate}</p>
