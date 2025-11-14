@@ -6,8 +6,6 @@ import ConfirmModal from "./confirm-modal";
 export default function TurnCard({ turn }) {
   const [modal, setModal] = useState(false);
 
-  const cuposOcupados = turn.cupoMax - turn.cuposDisponibles;
-
   const handlerReserv = () => {
     if (turn.cuposDisponibles == 0) return;
     setModal(true);
@@ -20,12 +18,10 @@ export default function TurnCard({ turn }) {
           {turn.horaInicio.slice(0, 5)} - {turn.horaFin.slice(0, 5)}
         </h4>
         <span className="text-[14px] text-gray-500">
-          {cuposOcupados}/{turn.cupoMax} lugares ocupados
+          {turn.cuposDisponibles}/50 lugares ocupados
         </span>
         <Progress
-          progress={
-            ((turn.cupoMax - turn.cuposDisponibles) / turn.cupoMax) * 100
-          }
+          progress={((50 - turn.cuposDisponibles) / 50) * 100}
           size="sm"
           className="dark:bg-gray-300"
         />

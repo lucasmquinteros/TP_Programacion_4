@@ -2,7 +2,10 @@ import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "../store/auth-store";
 import { createReservation } from "../services/reservation";
-import { set } from "zod";
+
+const PRECIO_POR_RESERVA = Number(
+  import.meta.env.VITE_PRECIO_POR_RESERVA ?? 10000
+);
 
 export default function ConfirmModal({ setModal, turn }) {
   const [count, setCount] = useState(0);
@@ -58,7 +61,7 @@ export default function ConfirmModal({ setModal, turn }) {
     mutation.mutate(reserva);
   };
 
-  const formatedDate = new Date(turn.dateTime).toLocaleDateString("es-AR", {
+  const formatedDate = new Date(turn.fecha).toLocaleDateString("es-AR", {
     weekday: "long",
     day: "numeric",
     month: "long",
@@ -138,7 +141,9 @@ export default function ConfirmModal({ setModal, turn }) {
           <span className="text-gray-500">
             Máximo {turn.cuposDisponibles} entradas.
           </span>
-          <p>Total a pagar: ${turn.precio * count}</p>
+          <p>
+            Total a pagar: {"$" + (PRECIO_POR_RESERVA * count).toLocaleString()}
+          </p>
         </div>
         <div className="flex justify-around mt-3">
           <button

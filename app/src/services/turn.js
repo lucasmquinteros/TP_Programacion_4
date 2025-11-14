@@ -11,11 +11,13 @@ export const getTurns = async (date) => {
   return res.data;
 };
 
-export const getTurnByDay = async (dateTime) => {
-  console.log(dateTime);
-  const res = await axios.get(`${url}/turnos/porDia`, {
+export const getTurnByDay = async (dateString) => {
+  console.log(dateString);
+  const res = await axios.get(`${url}/turnos/disponibilidad`, {
     withCredentials: true,
-    params: { dateTime },
+    params: {
+      fecha: dateString,
+    },
   });
 
   return res.data;

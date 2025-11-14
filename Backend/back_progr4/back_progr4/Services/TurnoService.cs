@@ -14,7 +14,7 @@ namespace back_progr4.Services
         {
             private readonly AplicationDbContext _db;
             private readonly IMapper _mapper;
-        private int CUPO_MAXIMO_POR_TURNO = 20;
+        private int CUPO_MAXIMO_POR_TURNO = 50;
 
             public TurnoService(AplicationDbContext db, IMapper mapper)
             {

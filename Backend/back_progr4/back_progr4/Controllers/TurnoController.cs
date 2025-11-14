@@ -44,10 +44,10 @@ namespace back_progr4.Controllers
 
         [HttpGet("disponibilidad")]
         [Authorize]
-        [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<DisponibilidadDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(HttpMessage), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(HttpMessage), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetDisponibilidadPorDia([FromQuery] DateTime fecha)
+        public async Task<ActionResult<List<DisponibilidadDTO>>> GetDisponibilidadPorDia([FromQuery] DateTime fecha)
         {
             try
             {

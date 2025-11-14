@@ -29,8 +29,6 @@ export const getReservationById = async (userId) => {
 };
 
 export const createReservation = async (reserva) => {
-  console.log(reserva);
-
   const res = await axios.post(`${url}/reservas/create`, reserva, {
     withCredentials: true,
     headers: {
