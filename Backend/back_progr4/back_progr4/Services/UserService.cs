@@ -36,7 +36,10 @@ namespace back_progr4.Services
 
         async public Task<List<UserWithoutPassDTO>> GetAll()
         {
-            var users = await _repo.GetAllAsync();
+            var users = await _repo.GetAllAsync(
+                null,
+                q => q.Include(u => u.Roles).Include(u => u.Reservas)
+                );
             return _mapper.Map<List<UserWithoutPassDTO>>(users);
         }
 
