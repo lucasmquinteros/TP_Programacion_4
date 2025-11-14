@@ -266,10 +266,16 @@ export default function Header() {
             </Link>
 
             {user?.roles?.includes("Admin") && (
-              <Link href="/admin" className="cursor-pointer relative group">
-                Estadísticas
-                <span className="block h-0.5 bg-[#FFA500] absolute -bottom-1 left-0 w-full transition-transform duration-300 ease-out transform scale-x-0 group-hover:scale-x-100"></span>
-              </Link>
+              <>
+                <Link href="/admin" className="cursor-pointer relative group">
+                  Estadísticas
+                  <span className="block h-0.5 bg-[#FFA500] absolute -bottom-1 left-0 w-full transition-transform duration-300 ease-out transform scale-x-0 group-hover:scale-x-100"></span>
+                </Link>
+                <Link href="/users" className="cursor-pointer relative group">
+                  Usuarios
+                  <span className="block h-0.5 bg-[#FFA500] absolute -bottom-1 left-0 w-full transition-transform duration-300 ease-out transform scale-x-0 group-hover:scale-x-100"></span>
+                </Link>
+              </>
             )}
           </nav>
           <button

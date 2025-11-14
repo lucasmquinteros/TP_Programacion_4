@@ -25,6 +25,7 @@ export default function Users() {
     queryKey: ["users"],
     queryFn: getUsers,
   });
+  console.log(users);
 
   return (
     <>
