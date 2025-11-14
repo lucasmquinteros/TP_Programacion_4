@@ -20,7 +20,9 @@ namespace back_progr4.Config
             CreateMap<string?, string>().ConvertUsing((src, dest) => src ?? dest);
 
             //Reserva
-            CreateMap<Reserva, ReservaDTO>().ReverseMap();
+            CreateMap<Reserva, ReservaDTO>().ForMember(
+                dest => dest.Turno,
+                opt => opt.MapFrom(src => src.Turno));
             CreateMap<CreateReservaDTO, ReservaDTO>().ReverseMap();
             CreateMap<CreateReservaDTO, Reserva>()
                 .ForMember(
