@@ -23,7 +23,7 @@ export default function ReservationCard({ reservation, isPast }) {
 
   return (
     <div
-      className="border border-gray-300 rounded-lg p-6 bg-white shadow-md hover:shadow-lg transition-shadow cursor-pointer"
+      className="border border-gray-300 rounded-lg p-6 bg-white shadow-md hover:shadow-lg cursor-pointer hover:bg-gray-300 transition-shadow"
       onClick={handleExpandCard}
     >
       <div className="flex justify-between items-start mb-4">

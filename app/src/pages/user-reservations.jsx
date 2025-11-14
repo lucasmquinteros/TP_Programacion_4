@@ -62,13 +62,13 @@ export default function UserReservations() {
           <div className="flex gap-4 mb-8 justify-center flex-wrap">
             <button
               onClick={() => setFilterStatus("Todas")}
-              className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+              className={`px-4 py-2 rounded-lg font-semibold transition-colors  ${
                 filterStatus === "Todas"
                   ? "bg-blue-600 text-white"
                   : "bg-gray-200 text-gray-800 hover:bg-gray-300"
               }`}
             >
-              Todas ({confirmadas && completos})
+              Todas ({user?.reservas?.length || 0})
             </button>
             <button
               onClick={() => setFilterStatus("Confirmada")}
