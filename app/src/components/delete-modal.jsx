@@ -30,7 +30,7 @@ export default function DeleteModal({
 
         <div className="flex items-center justify-end gap-3 px-6 py-4 border-t">
           <button
-            className="rounded-md px-4 py-2 text-sm bg-gray-100 text-gray-800 hover:bg-gray-200 transition"
+            className="cursor-pointer rounded-md px-4 py-2 text-sm bg-gray-100 text-gray-800 hover:bg-gray-200 transition"
             onClick={onCancel}
             type="button"
           >
@@ -38,7 +38,7 @@ export default function DeleteModal({
           </button>
 
           <button
-            className="rounded-md px-4 py-2 text-sm bg-red-600 text-white hover:bg-red-700 transition flex items-center gap-2"
+            className="cursor-pointer rounded-md px-4 py-2 text-sm bg-red-600 text-white hover:bg-red-700 transition flex items-center gap-2"
             onClick={onConfirm}
             type="button"
             disabled={loading}

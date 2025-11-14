@@ -13,8 +13,8 @@ export default function Schedules() {
           Viernes - Sábado
         </div>
         <div className="border-b border-b-gray-200 p-2">10:00AM - 10:00PM</div>
-        <div className="p-2 px-4">Domingo y Festivos</div>
-        <div className="p-2">11:00AM - 7:00PM</div>
+        <div className="p-2 px-4">Domingo</div>
+        <div className="p-2">Cerrado</div>
       </div>
     </div>
   );

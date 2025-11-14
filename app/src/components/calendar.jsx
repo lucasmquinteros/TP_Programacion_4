@@ -49,6 +49,11 @@ export function Calendar() {
               })}
             </span>
           </p>
+          {turns?.length === 0 && (
+            <span className="text-center w-[80%]">
+              Seleccione una fecha a partir del dia de hoy y que no sea domingo
+            </span>
+          )}
           {isPending && <LoadingSpinner />}
           <div className="w-full flex flex-col items-center gap-5 lg:w-[50%]">
             {turns?.map((t) => (

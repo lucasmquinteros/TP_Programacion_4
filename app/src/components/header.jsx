@@ -282,7 +282,8 @@ export default function Header() {
           </nav>
           <button
             href="/sign-up"
-            className="text-red-600 border-red-600 bg-red-200 border-[1.8px] rounded-3xl px-3 py-1.5 cursor-pointer"
+            className="text-red-600 border-red-600 bg-red-200 border-[1.8px] rounded-3xl px-3 py-1.5 cursor-pointer transition-all duration-300 ease-in-out
+             hover:shadow-[0_0_15px_rgba(220,38,38,0.7)] hover:border-transparent"
             onClick={() => {
               signOut();
               logout();

@@ -47,10 +47,10 @@ export default function UserReservations() {
     );
   }
 
-  const confirmadas = reservations.filter(
+  const confirmadas = reservations?.filter(
     (r) => r.estado === "Confirmada"
   ).length;
-  const completos = reservations.filter(
+  const completos = reservations?.filter(
     (r) => r.estado === "Finalizado"
   ).length;
 
@@ -83,7 +83,7 @@ export default function UserReservations() {
                   : "bg-gray-200 text-gray-800 hover:bg-gray-300"
               }`}
             >
-              ({user?.reservas?.length || 0})
+              Totales ({user?.reservas?.length || 0})
             </button>
             <button
               onClick={() => setFilterStatus("Confirmada")}
