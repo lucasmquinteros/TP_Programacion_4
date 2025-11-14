@@ -25,7 +25,7 @@ namespace back_progr4.Controllers
             _reservaService = reservaService;
         }
         [HttpGet("userRes")]
-        [Authorize(Roles = $"{ROLE.MOD}, {ROLE.ADMIN}")]
+        [Authorize]
         [ProducesResponseType(typeof(List<ReservaDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(HttpMessage), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(HttpMessage), StatusCodes.Status500InternalServerError)]

@@ -168,7 +168,7 @@ export default function Header() {
 
               <Link
                 href="/sign-up"
-                className="text-white bg-[#FFA500] rounded-3xl px-3 py-1.5 cursor-pointer hidden md:block
+                className="text-white bg-[#FFA500] border-[1.8px] rounded-3xl px-3 py-1.5 cursor-pointer hidden md:block
              transition-colors duration-300
              hover:bg-white hover:text-[#FFA500] hover:border-[#FFA500] hover:border-[1.8px]"
               >

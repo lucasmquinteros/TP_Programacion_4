@@ -4,6 +4,8 @@ import Header from "../components/header";
 import ReservationCard from "../components/reservation-card";
 import { useAuthStore } from "../store/auth-store";
 import { useLocation } from "wouter";
+import { getReservationById } from "../services/reservation";
+import { useQuery } from "@tanstack/react-query";
 
 export default function UserReservations() {
   const { user, isAuthenticated } = useAuthStore();
@@ -16,6 +18,11 @@ export default function UserReservations() {
       return;
     }
   }, [isAuthenticated, setLocation]);
+
+  const { data: reservations } = useQuery({
+    queryKey: ["reservations"],
+    queryFn: () => getReservationById(user.id),
+  });
 
   let filteredReservations = [];
 

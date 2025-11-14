@@ -25,8 +25,8 @@ export default function ConfirmModal({ setModal, turn }) {
       setTimeout(() => setModal(false), 3000);
     },
     onError: (error) => {
-      console.error("Error al crear la reserva ❌", error);
-      setErrorMessage("Error al crear la reserva ❌");
+      console.error("Error al crear la reserva", error);
+      setErrorMessage("Error al crear la reserva");
     },
   });
 
@@ -66,14 +66,19 @@ export default function ConfirmModal({ setModal, turn }) {
 
   return (
     <div className="fixed inset-0 flex justify-center items-center z-40">
-      {successMessage && (
-        <div
-          className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-100"
-          role="alert"
-        >
-          <span className="font-medium">Reserva Confirmada ✅</span>
-        </div>
-      )}
+      <div
+        className={`p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-100 absolute z-50 shadow-2xl transition-all duration-300 ease-in-out
+    ${
+      successMessage
+        ? "opacity-100 translate-y-0"
+        : "opacity-0 translate-y-full"
+    }
+  `}
+        role="alert"
+      >
+        <span className="font-medium">Reserva Confirmada ✅</span>
+      </div>
+
       <div className="bg-white relative w-[90%] mx-auto flex flex-col gap-4 p-5 rounded-3xl shadow-2xl md:w-[50%] md:p-9 md:text-[20px]">
         <button
           onClick={() => setModal(false)}
@@ -150,6 +155,15 @@ export default function ConfirmModal({ setModal, turn }) {
           </button>
         </div>
       </div>
+      {successMessage && (
+        <div
+          className="fixed inset-0 bg-gray-400 opacity-70 z-30"
+          onClick={() => {
+            setMenu(false);
+            setProfile(false);
+          }}
+        ></div>
+      )}
     </div>
   );
 }

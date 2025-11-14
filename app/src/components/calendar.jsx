@@ -48,12 +48,12 @@ export function Calendar() {
               })}
             </span>
           </p>
+          {isPending && <LoadingSpinner />}
           <div className="w-full flex flex-col items-center gap-5 lg:w-[50%]">
             {turns?.map((t) => (
               <TurnCard key={t.id} turn={t}></TurnCard>
             ))}
           </div>
-          {isPending && <LoadingSpinner />}
         </>
       ) : (
         <p className="text-gray-500">↑ Seleccioná una fecha del calendario ↑</p>

@@ -19,9 +19,10 @@ export const getReservationsByDay = async (date) => {
   return res.data;
 };
 
-export const getReservationById = async (id) => {
-  const res = await axios.get(`${url}/reservas/${id}`, {
+export const getReservationById = async (userId) => {
+  const res = await axios.get(`${url}/reservas/userRes`, {
     withCredentials: true,
+    params: { userId },
   });
 
   return res.data;
