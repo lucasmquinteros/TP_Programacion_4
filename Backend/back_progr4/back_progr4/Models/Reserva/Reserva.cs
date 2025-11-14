@@ -25,7 +25,7 @@ namespace back_progr4.Models.Reserva
 
         public DateTime FechaReserva { get; set; }
 
-        public double Precio { get; set; }
+        public double Precio { get; private set; } = 10000;
         public string Estado { get; set; } = ESTADO.CONFIRMADA;
 
     }
