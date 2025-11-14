@@ -10,6 +10,8 @@ export default function Header() {
   const [menu, setMenu] = useState(false);
   const [profile, setProfile] = useState(false);
 
+  console.log(user);
+
   return (
     <header className=" bg-white sticky top-0 border-b border-b-gray-200 z-10">
       <div className="p-3 mx-auto flex justify-between items-center lg:w-[90%] md:p-6">
@@ -284,6 +286,7 @@ export default function Header() {
             onClick={() => {
               signOut();
               logout();
+              setProfile(false);
             }}
           >
             Cerrar sesión

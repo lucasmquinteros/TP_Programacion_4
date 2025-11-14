@@ -48,7 +48,6 @@ export default function Admin() {
       ? Math.round(ocupaciones.reduce((a, b) => a + b, 0) / ocupaciones.length)
       : 0;
   const turnsToday = reservationsToday?.length;
-  console.log(reservationsToday);
 
   return (
     <>

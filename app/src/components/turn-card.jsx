@@ -3,7 +3,7 @@ import ReserveButton from "./buttons/reserve-button";
 import { Progress } from "flowbite-react";
 import ConfirmModal from "./confirm-modal";
 
-export default function TurnCard({ turn, date }) {
+export default function TurnCard({ turn, date, setSelectedDate }) {
   const [modal, setModal] = useState(false);
 
   const handlerReserv = () => {
@@ -33,7 +33,14 @@ export default function TurnCard({ turn, date }) {
         Reservar
       </button>
 
-      {modal && <ConfirmModal setModal={setModal} turn={turn} date={date} />}
+      {modal && (
+        <ConfirmModal
+          setModal={setModal}
+          turn={turn}
+          date={date}
+          setSelectedDate={setSelectedDate}
+        />
+      )}
       {modal && (
         <div
           className="fixed inset-0 bg-gray-800 opacity-40 z-30"
