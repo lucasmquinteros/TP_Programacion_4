@@ -53,25 +53,25 @@ export default function Admin() {
     <>
       <Header />
       <main className="gap-8 w-[85%] mx-auto text-3xl lg:text-4xl text-center my-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 md:w-[50%] mx-auto gap-9">
+        <div className="grid grid-cols-1 lg:grid-cols-2 md:w-[50%] mx-auto gap-9 ">
           <Link
             href="users"
-            className="bg-white rounded-3xl p-7 border border-gray-300 shadow-2xl flex flex-col items-center gap-4 lg:p-10"
+            className="bg-white rounded-3xl p-7 border border-gray-300 shadow-2xl flex flex-col items-center gap-4 lg:p-10 hover:shadow-[0_0_15px_#ffa500] transition duration-300 ease-in-out"
           >
             <h4 className="font-semibold text-gray-700">Total de usuarios</h4>
             <span className="text-[#FFA500]">{totalUsers}</span>
           </Link>
-          <div className="bg-white rounded-3xl p-7 border border-gray-300 shadow-2xl flex flex-col items-center gap-4 lg:p-10">
+          <div className="bg-white rounded-3xl p-7 border border-gray-300 shadow-2xl flex flex-col items-center gap-4 lg:p-10 hover:shadow-[0_0_15px_#ffa500] transition duration-300 ease-in-out">
             <h4 className="font-semibold text-gray-700">Total de turnos</h4>
             <span className="text-[#FFA500]">{totalTurns}</span>
           </div>
-          <div className="bg-white rounded-3xl p-7 border border-gray-300 shadow-2xl flex flex-col items-center gap-4 lg:p-10">
+          <div className="bg-white rounded-3xl p-7 border border-gray-300 shadow-2xl flex flex-col items-center gap-4 lg:p-10 hover:shadow-[0_0_15px_#ffa500] transition duration-300 ease-in-out">
             <h4 className="font-semibold text-gray-700">
               Promedio de ocupación
             </h4>
             <span className="text-[#FFA500]">{ocupacionPromedio}%</span>
           </div>
-          <div className="bg-white rounded-3xl p-7 border border-gray-300 shadow-2xl flex flex-col items-center gap-4 lg:p-10">
+          <div className="bg-white rounded-3xl p-7 border border-gray-300 shadow-2xl flex flex-col items-center gap-4 lg:p-10 hover:shadow-[0_0_15px_#ffa500] transition duration-300 ease-in-out">
             <h4 className="font-semibold text-gray-700">
               Reservas el día de hoy
             </h4>
