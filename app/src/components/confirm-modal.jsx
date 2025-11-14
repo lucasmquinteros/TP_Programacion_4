@@ -7,7 +7,7 @@ const PRECIO_POR_RESERVA = Number(
   import.meta.env.VITE_PRECIO_POR_RESERVA ?? 10000
 );
 
-export default function ConfirmModal({ setModal, turn }) {
+export default function ConfirmModal({ setModal, turn, date }) {
   const [count, setCount] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState(false);
@@ -54,7 +54,8 @@ export default function ConfirmModal({ setModal, turn }) {
 
     const reserva = {
       userId: user.id,
-      turnoId: turn.id,
+      fechaTurno: date,
+      horaInicioTurno: turn.horaInicio,
       cantidad: count,
     };
 

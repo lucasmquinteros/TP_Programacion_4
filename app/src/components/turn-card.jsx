@@ -3,7 +3,7 @@ import ReserveButton from "./buttons/reserve-button";
 import { Progress } from "flowbite-react";
 import ConfirmModal from "./confirm-modal";
 
-export default function TurnCard({ turn }) {
+export default function TurnCard({ turn, date }) {
   const [modal, setModal] = useState(false);
 
   const handlerReserv = () => {
@@ -18,7 +18,7 @@ export default function TurnCard({ turn }) {
           {turn.horaInicio.slice(0, 5)} - {turn.horaFin.slice(0, 5)}
         </h4>
         <span className="text-[14px] text-gray-500">
-          {turn.cuposDisponibles}/50 lugares ocupados
+          {50 - turn.cuposDisponibles}/50 lugares ocupados
         </span>
         <Progress
           progress={((50 - turn.cuposDisponibles) / 50) * 100}
@@ -33,7 +33,7 @@ export default function TurnCard({ turn }) {
         Reservar
       </button>
 
-      {modal && <ConfirmModal setModal={setModal} turn={turn} />}
+      {modal && <ConfirmModal setModal={setModal} turn={turn} date={date} />}
       {modal && (
         <div
           className="fixed inset-0 bg-gray-800 opacity-40 z-30"

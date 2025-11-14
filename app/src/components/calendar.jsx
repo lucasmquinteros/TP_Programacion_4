@@ -52,7 +52,11 @@ export function Calendar() {
           {isPending && <LoadingSpinner />}
           <div className="w-full flex flex-col items-center gap-5 lg:w-[50%]">
             {turns?.map((t) => (
-              <TurnCard key={t.horaInicio} turn={t}></TurnCard>
+              <TurnCard
+                key={t.horaInicio}
+                turn={t}
+                date={selectedDate.toISOString()}
+              ></TurnCard>
             ))}
           </div>
         </>
