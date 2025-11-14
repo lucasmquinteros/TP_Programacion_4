@@ -55,7 +55,7 @@ export function Calendar() {
               <TurnCard
                 key={t.horaInicio}
                 turn={t}
-                date={selectedDate.toISOString()}
+                date={selectedDate}
                 setSelectedDate={setSelectedDate}
               ></TurnCard>
             ))}

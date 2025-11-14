@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "../store/auth-store";
 import { createReservation } from "../services/reservation";
@@ -25,13 +25,15 @@ export default function ConfirmModal({
     };
   }, []);
 
+  const queryClient = useQueryClient();
+
   const mutation = useMutation({
     mutationKey: ["createReservation"],
     mutationFn: createReservation,
     onSuccess: () => {
+      queryClient.invalidateQueries(["turnos", date.toISOString()]);
       setSuccessMessage(true);
       setTimeout(() => setModal(false), 3000);
-      location.reload();
     },
     onError: (error) => {
       console.error("Error al crear la reserva", error);
@@ -60,7 +62,7 @@ export default function ConfirmModal({
 
     const reserva = {
       userId: user.id,
-      fechaTurno: date,
+      fechaTurno: date.toISOString(),
       horaInicioTurno: turn.horaInicio,
       cantidad: count,
     };
