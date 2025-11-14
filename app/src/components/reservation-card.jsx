@@ -23,7 +23,7 @@ export default function ReservationCard({ reservation, isPast }) {
 
   return (
     <div
-      className="border border-gray-300 rounded-lg p-6 bg-white shadow-md hover:shadow-lg transition-shadow"
+      className="border border-gray-300 rounded-lg p-6 bg-white shadow-md hover:shadow-lg transition-shadow cursor-pointer"
       onClick={handleExpandCard}
     >
       <div className="flex justify-between items-start mb-4">
@@ -31,7 +31,6 @@ export default function ReservationCard({ reservation, isPast }) {
           <h4 className="text-xl font-bold text-gray-800">
             {formatDate(reservation.fechaReserva)}
           </h4>
-          npm
         </div>
         <span
           className={`px-3 py-1 rounded-full text-xs font-semibold ${

@@ -56,7 +56,7 @@ export default function Admin() {
       <main className="gap-8 w-[85%] mx-auto text-3xl lg:text-4xl text-center my-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 md:w-[50%] mx-auto gap-9">
           <Link
-            href="admin/users"
+            href="users"
             className="bg-white rounded-3xl p-7 border border-gray-300 shadow-2xl flex flex-col items-center gap-4 lg:p-10"
           >
             <h4 className="font-semibold text-gray-700">Total de usuarios</h4>
