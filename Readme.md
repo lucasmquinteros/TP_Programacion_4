@@ -169,13 +169,9 @@ Una vez que el proyecto esté funcionando:
 
 ---
 
-## Notes
+## Notas
 
 El proyecto utiliza AutoMapper para transformaciones entre entidades y DTOs [10](#0-9) , y Entity Framework Core con SQL Server como base de datos. El frontend está construido con React + TypeScript usando Vite como bundler [11](#0-10) . La autenticación se maneja mediante JWT tokens almacenados en cookies HTTP-only para mayor seguridad.
-
-Wiki pages you might want to explore:
-
-- [DTOs and AutoMapper Configuration (lucasmquinteros/TP_Programacion_4)](/wiki/lucasmquinteros/TP_Programacion_4#3.4.3)
 
 ### Citations
 
