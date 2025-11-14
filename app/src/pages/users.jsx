@@ -5,6 +5,7 @@ import { useLocation } from "wouter";
 import { getUsers } from "../services/auth";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import UserCard from "../components/user-card";
 
 export default function Users() {
   const [, setLocation] = useLocation();
@@ -32,11 +33,7 @@ export default function Users() {
       <Header />
       <main>
         {users?.map((u) => (
-          <div key={u.id}>
-            <p>{u.userName}</p>
-            <p>{u.email}</p>
-            <p>{u.roles.includes("Admin") ? "Admin" : "User"}</p>
-          </div>
+          <UserCard key={u.id} user={u} />
         ))}
       </main>
       <Footer />

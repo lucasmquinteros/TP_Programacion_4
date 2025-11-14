@@ -13,6 +13,12 @@ export const signIn = async (credentials) => {
   return res.data;
 };
 
+export const deleteUser = async (userId) => {
+  const res = await axios.delete(`${url}/auth/${userId}`, {
+    withCredentials: true,
+  });
+};
+
 export const signUp = async (user) => {
   const res = await axios.post(`${url}/auth/register`, user, {
     withCredentials: true,
