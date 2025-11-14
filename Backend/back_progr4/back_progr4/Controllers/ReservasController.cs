@@ -122,9 +122,6 @@ namespace back_progr4.Controllers
             try
             {
                 var created = await _reservaService.CreateOne(createReserva);
-
-                // Si ReservaDTO tiene Id, mejor usar CreatedAtAction:
-                // return CreatedAtAction(nameof(GetOneById), new { id = created.Id }, created);
                 return Created("CreateReserva", created);
             }
             catch (HttpResponseError ex)

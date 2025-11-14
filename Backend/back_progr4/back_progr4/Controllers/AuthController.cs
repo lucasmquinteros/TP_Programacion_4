@@ -77,7 +77,7 @@ namespace back_progr4.Controllers
         }
         [HttpDelete]
         [Authorize(Roles = $"{ROLE.MOD}, {ROLE.ADMIN}")]
-        [ProducesResponseType(typeof(LoginResponseDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(HttpMessage), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(HttpMessage), StatusCodes.Status500InternalServerError)]
         async public Task<ActionResult> DeleteUser(int id)

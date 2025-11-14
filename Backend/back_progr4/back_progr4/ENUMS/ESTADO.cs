@@ -7,6 +7,7 @@
         public const string DISPONIBLE = "Disponible";
         public const string COMPLETO = "Completo";
         public const string FINALIZADO = "Finalizado";
+        public const string LLENO = "Lleno";
 
     }
 }

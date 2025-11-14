@@ -42,6 +42,26 @@ namespace back_progr4.Controllers
             }
         }
 
+        [HttpGet("disponibilidad")]
+        [Authorize]
+        [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(HttpMessage), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(HttpMessage), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetDisponibilidadPorDia([FromQuery] DateTime fecha)
+        {
+            try
+            {
+                var disponibilidad = await _turnoService.GetDisponibilidad(fecha);
+                return Ok(disponibilidad);
+            }catch (HttpResponseError ex)
+            {
+                return StatusCode((int)ex.StatusCode, new HttpMessage(ex.Message));
+            }catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new HttpMessage(ex.Message));
+            }
+        }
+
         [HttpGet("{id}")]
         [Authorize]
         [ProducesResponseType(typeof(Turno), StatusCodes.Status200OK)]

@@ -1,6 +1,7 @@
 ﻿using Auth.Utils;
 using AutoMapper;
 using back_progr4.Config;
+using back_progr4.ENUMS;
 using back_progr4.Models.Reserva;
 using back_progr4.Models.Reserva.DTOs;
 using Microsoft.EntityFrameworkCore;
@@ -62,35 +63,32 @@ namespace back_progr4.Services
         }
         public async Task<ReservaDTO> CreateOne(CreateReservaDTO createReserva)
         {
-            try
-            {
+            var turnoParaLaReserva = await _turnoService.GetOrCreateTurnoParaSlot(
+                createReserva.FechaTurno,
+                createReserva.HoraInicioTurno
+            );
 
-            var turnoExiste = await _db.Turnos.AnyAsync(t => t.Id == createReserva.TurnoId);
-            if (!turnoExiste)
+
+            if (turnoParaLaReserva.CuposDisponibles < createReserva.Cantidad)
             {
-                throw new HttpResponseError(System.Net.HttpStatusCode.NotFound,
-                    $"El TurnoId {createReserva.TurnoId} no existe.");
+                throw new HttpResponseError(System.Net.HttpStatusCode.BadRequest, "No hay suficientes cupos.");
             }
 
-            var userExiste = await _db.Users.AnyAsync(u => u.Id == createReserva.UserId); 
-            if (!userExiste)
+            turnoParaLaReserva.CuposDisponibles -= createReserva.Cantidad;
+            if (turnoParaLaReserva.CuposDisponibles == 0)
             {
-                throw new HttpResponseError(System.Net.HttpStatusCode.NotFound,
-                    $"El UserId {createReserva.UserId} no existe.");
+                turnoParaLaReserva.Estado = ESTADO.LLENO;
             }
-
 
             var reserva = _mapper.Map<Reserva>(createReserva);
-
-            await _turnoService.ActualizarCupos(createReserva.TurnoId, createReserva.Cantidad);
+            reserva.Turno = turnoParaLaReserva; 
 
             await _db.Reservas.AddAsync(reserva);
-            await _db.SaveChangesAsync(); 
+
+            
+            await _db.SaveChangesAsync();
+
             return _mapper.Map<ReservaDTO>(reserva);
-            } catch (Exception ex)
-            {
-                throw; // new HttpResponseError(System.Net.HttpStatusCode.InternalServerError, ex.Message);
-            }
         }
         public async Task<ReservaDTO> UpdateOne(int id , UpdateReservaDTO updateReserva)
         {
@@ -107,6 +105,7 @@ namespace back_progr4.Services
         public async Task DeleteOne(int id)
         {
             var reserva = await GetOneById(id);
+            await _turnoService.ActualizarCupos(reserva.TurnoId, reserva.Cantidad * -1);
             _db.Reservas.Remove(reserva);
             await _db.SaveChangesAsync();
         }

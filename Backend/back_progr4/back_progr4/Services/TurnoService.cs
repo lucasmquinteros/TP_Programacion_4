@@ -14,6 +14,7 @@ namespace back_progr4.Services
         {
             private readonly AplicationDbContext _db;
             private readonly IMapper _mapper;
+        private int CUPO_MAXIMO_POR_TURNO = 20;
 
             public TurnoService(AplicationDbContext db, IMapper mapper)
             {
@@ -77,8 +78,81 @@ namespace back_progr4.Services
                 throw new HttpResponseError(System.Net.HttpStatusCode.InternalServerError, "Error al crear el turno: " + ex.Message);
                 }
             }
+        private List<TimeOnly> GenerarPlantillaDeHorarios()
+        {
+            var horarios = new List<TimeOnly>();
+            for (int hora = 8; hora <= 17; hora++)
+            {
+                horarios.Add(new TimeOnly(hora, 0, 0));
+            }
+            return horarios;
+        }
 
-            public async Task<TurnoDTO> UpdateOne(int id, UpdateTurnoDTO updateTurno)
+
+        public async Task<List<DisponibilidadDTO>> GetDisponibilidad(DateTime fecha)
+        {
+            var fechaLimpia = fecha.Date;
+            var plantilla = GenerarPlantillaDeHorarios();
+
+            // existe un turno ese dia? bueno traemelo
+            var turnosReales = await _db.Turnos
+                .Where(t => t.Fecha == fechaLimpia)
+                .ToDictionaryAsync(t => t.HoraInicio);
+
+            var disponibilidadDelDia = new List<DisponibilidadDTO>();
+
+            
+            foreach (var horaInicio in plantilla)
+            {
+                if (turnosReales.TryGetValue(horaInicio, out var turnoReal))
+                {
+                    disponibilidadDelDia.Add(new DisponibilidadDTO
+                    {
+                        Fecha = fechaLimpia,
+                        HoraInicio = horaInicio,
+                        HoraFin = horaInicio.AddHours(1),
+                        CuposDisponibles = turnoReal.CuposDisponibles
+                    });
+                }
+                else
+                {
+                    disponibilidadDelDia.Add(new DisponibilidadDTO
+                    {
+                        Fecha = fechaLimpia,
+                        HoraInicio = horaInicio,
+                        HoraFin = horaInicio.AddHours(1),
+                        CuposDisponibles = CUPO_MAXIMO_POR_TURNO
+                    });
+                }
+            }
+
+            return disponibilidadDelDia;
+        }
+
+        public async Task<Turno> GetOrCreateTurnoParaSlot(DateTime fecha, TimeOnly horaInicio)
+        {
+            var turno = await _db.Turnos
+                .FirstOrDefaultAsync(t => t.Fecha == fecha.Date && t.HoraInicio == horaInicio);
+
+            if (turno == null)
+            {
+                turno = new Turno
+                {
+                    Fecha = fecha.Date,
+                    HoraInicio = horaInicio,
+                    HoraFin = horaInicio.AddHours(1),
+                    CupoMax = CUPO_MAXIMO_POR_TURNO,
+                    CuposDisponibles = CUPO_MAXIMO_POR_TURNO, 
+                    Estado = ESTADO.DISPONIBLE
+                };
+
+                await _db.Turnos.AddAsync(turno);
+            }
+
+            return turno;
+        }
+
+        public async Task<TurnoDTO> UpdateOne(int id, UpdateTurnoDTO updateTurno)
             {
                 var turno = await GetOneById(id);
 

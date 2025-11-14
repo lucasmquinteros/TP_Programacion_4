@@ -7,12 +7,12 @@ namespace back_progr4.Models.Reserva.DTOs
     {
         [Required]
         public int UserId { get; set; }
-
         [Required]
-        public int TurnoId { get; set; }
-
+        public DateTime FechaTurno { get; set; }
         [Required]
-        [Range(1, 50)] 
+        public TimeOnly HoraInicioTurno { get; set; }
+        [Required]
+        [Range(1, 50)]
         public int Cantidad { get; set; }
     }
 }
