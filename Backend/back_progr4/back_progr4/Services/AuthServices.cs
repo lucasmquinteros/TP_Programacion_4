@@ -34,6 +34,11 @@ namespace back_progr4.Services
         {
             return await _userServices.GetAll();
         }
+        public async Task DeleteUser(int id)
+        {
+
+           await _userServices.DeleteOne(id);
+        }
 
         async public Task<LoginResponseDTO> Register(RegisterDTO register)
         {

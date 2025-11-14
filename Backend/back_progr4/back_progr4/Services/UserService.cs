@@ -42,6 +42,15 @@ namespace back_progr4.Services
                 );
             return _mapper.Map<List<UserWithoutPassDTO>>(users);
         }
+        public async Task DeleteOne(int id)
+        {
+            var user = await GetOneById(id);
+            if(user == null)
+            {
+                throw new HttpResponseError(HttpStatusCode.NotFound, "User not found");
+            }
+            await _repo.DeleteOneAsync(user);
+        }
 
         async public Task<User> GetOneByEmailOrUsername(string? email, string? username)
         {

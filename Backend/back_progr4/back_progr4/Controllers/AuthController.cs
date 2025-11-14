@@ -16,6 +16,7 @@ namespace back_progr4.Controllers
     {
         private readonly AuthServices _authServices;
 
+
         public AuthController(AuthServices authServices)
         {
             _authServices = authServices;
@@ -58,6 +59,33 @@ namespace back_progr4.Controllers
             {
                 var res = await _authServices.Login(login, HttpContext);
                 return Ok(res);
+            }
+            catch (HttpResponseError ex)
+            {
+                return StatusCode(
+                    (int)ex.StatusCode,
+                    new HttpMessage(ex.Message)
+                );
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(
+                    (int)HttpStatusCode.InternalServerError,
+                    new HttpMessage(ex.Message)
+                );
+            }
+        }
+        [HttpDelete]
+        [Authorize(Roles = $"{ROLE.MOD}, {ROLE.ADMIN}")]
+        [ProducesResponseType(typeof(LoginResponseDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(HttpMessage), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(HttpMessage), StatusCodes.Status500InternalServerError)]
+        async public Task<ActionResult> DeleteUser(int id)
+        {
+            try
+            {
+                await _authServices.DeleteUser(id);
+                return Ok();
             }
             catch (HttpResponseError ex)
             {
