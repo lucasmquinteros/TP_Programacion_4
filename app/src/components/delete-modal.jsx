@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ConfirmModal({
+export default function DeleteModal({
   open,
   title = "Confirmar acción",
   message = "¿Estás seguro?",
