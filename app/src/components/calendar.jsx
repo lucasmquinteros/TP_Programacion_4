@@ -56,6 +56,7 @@ export function Calendar() {
                 key={t.horaInicio}
                 turn={t}
                 date={selectedDate.toISOString()}
+                setSelectedDate={setSelectedDate}
               ></TurnCard>
             ))}
           </div>
