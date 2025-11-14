@@ -26,17 +26,17 @@ export default function UserReservations() {
 
   let filteredReservations = [];
 
-  if (user?.reservas && user.reservas.length > 0) {
+  if (reservations && reservations.length > 0) {
     if (filterStatus === "Confirmada") {
-      filteredReservations = user.reservas.filter(
+      filteredReservations = reservations.filter(
         (reserva) => reserva.estado === "Confirmada"
       );
     } else if (filterStatus === "Completo") {
-      filteredReservations = user.reservas.filter(
+      filteredReservations = reservations.filter(
         (reserva) => reserva.estado === "Completo"
       );
     } else if (filterStatus === "Todas") {
-      filteredReservations = user.reservas.filter(
+      filteredReservations = reservations.filter(
         (reserva) =>
           reserva.estado === "Confirmada" || reserva.estado === "Completo"
       );
@@ -47,24 +47,40 @@ export default function UserReservations() {
     );
   }
 
-  const confirmadas =
-    user?.reservas?.filter((r) => r.estado === "Confirmada").length || 0;
-  const completos =
-    user?.reservas?.filter((r) => r.estado === "Completo").length || 0;
+  const confirmadas = allReservations.filter(
+    (r) => r.estado === "Confirmada"
+  ).length;
+  const completos = allReservations.filter(
+    (r) => r.estado === "Completo"
+  ).length;
+
+  if (isLoading) {
+    return (
+      <>
+        <Header />
+        <main className="flex justify-center items-center h-64">
+          <p className="text-xl ffa500">Cargando reservas...</p>
+        </main>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
       <Header />
-      <main className="flex flex-col items-center gap-10 md:gap-16 my-8 px-4 max-w-4xl mx-auto">
+      <main className="flex flex-col items-center gap-10 md:gap-16 my-8 px-4 max-w-6xl mx-auto">
         <div className="w-full">
-          <h1 className="text-3xl font-bold mb-8">Mis Reservas</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold mb-8 text-center sm:text-left">
+            Mis Reservas
+          </h1>
           <h2> </h2>
-          <div className="flex gap-4 mb-8 justify-center flex-wrap">
+          <div className="flex gap-3 sm:gap-4 mb-8 justify-center flex-wrap">
             <button
               onClick={() => setFilterStatus("Todas")}
-              className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+              className={`px-4 py-2 rounded-lg font-semibold transition-colors text-sm sm:text-base whitespace-nowrap ${
                 filterStatus === "Todas"
-                  ? "bg-blue-600 text-white"
+                  ? "bg-blue-600 text-white shadow-md"
                   : "bg-gray-200 text-gray-800 hover:bg-gray-300"
               }`}
             >
@@ -72,9 +88,9 @@ export default function UserReservations() {
             </button>
             <button
               onClick={() => setFilterStatus("Confirmada")}
-              className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+              className={`px-4 py-2 rounded-lg font-semibold transition-colors text-sm sm:text-base whitespace-nowrap ${
                 filterStatus === "Confirmada"
-                  ? "bg-green-600 text-white"
+                  ? "bg-green-600 text-white shadow-md"
                   : "bg-gray-200 text-gray-800 hover:bg-gray-300"
               }`}
             >
@@ -82,7 +98,7 @@ export default function UserReservations() {
             </button>
             <button
               onClick={() => setFilterStatus("Completo")}
-              className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+              className={`px-4 py-2 rounded-lg font-semibold transition-colors text-sm sm:text-base whitespace-nowrap ${
                 filterStatus === "Completo"
                   ? "bg-orange-600 text-white"
                   : "bg-gray-200 text-gray-800 hover:bg-gray-300"
@@ -104,7 +120,7 @@ export default function UserReservations() {
               </p>
             </div>
           ) : (
-            <div className="grid gap-6 w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
               {filteredReservations.map((reserva) => (
                 <ReservationCard key={reserva.id} reservation={reserva} />
               ))}
