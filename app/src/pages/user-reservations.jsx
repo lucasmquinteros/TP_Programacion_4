@@ -83,7 +83,7 @@ export default function UserReservations() {
                   : "bg-gray-200 text-gray-800 hover:bg-gray-300"
               }`}
             >
-              Todas ({reservations.length})
+              ({user?.reservas?.length || 0})
             </button>
             <button
               onClick={() => setFilterStatus("Confirmada")}

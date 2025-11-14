@@ -14,7 +14,7 @@ namespace back_progr4.Services
         {
             private readonly AplicationDbContext _db;
             private readonly IMapper _mapper;
-        private int CUPO_MAXIMO_POR_TURNO = 50;
+            private int CUPO_MAXIMO_POR_TURNO = 50;
 
             public TurnoService(AplicationDbContext db, IMapper mapper)
             {
@@ -78,13 +78,31 @@ namespace back_progr4.Services
                 throw new HttpResponseError(System.Net.HttpStatusCode.InternalServerError, "Error al crear el turno: " + ex.Message);
                 }
             }
-        private List<TimeOnly> GenerarPlantillaDeHorarios()
+        private List<TimeOnly> GenerarPlantillaDeHorarios(DateTime fecha)
         {
             var horarios = new List<TimeOnly>();
-            for (int hora = 8; hora <= 17; hora++)
+            var diaDeLaSemana = fecha.DayOfWeek;
+
+            switch (diaDeLaSemana)
             {
-                horarios.Add(new TimeOnly(hora, 0, 0));
+                case DayOfWeek.Sunday:
+                    break;
+
+                case DayOfWeek.Saturday:
+                    for (int hora = 8; hora <= 11; hora++)
+                    {
+                        horarios.Add(new TimeOnly(hora, 0, 0));
+                    }
+                    break;
+
+                default:
+                    for (int hora = 8; hora <= 17; hora++)
+                    {
+                        horarios.Add(new TimeOnly(hora, 0, 0));
+                    }
+                    break;
             }
+
             return horarios;
         }
 
@@ -92,7 +110,22 @@ namespace back_progr4.Services
         public async Task<List<DisponibilidadDTO>> GetDisponibilidad(DateTime fecha)
         {
             var fechaLimpia = fecha.Date;
-            var plantilla = GenerarPlantillaDeHorarios();
+            var ahora = DateTime.Now;
+            var hoy = ahora.Date;
+            var horaActual = TimeOnly.FromTimeSpan(ahora.TimeOfDay);
+
+            if (fechaLimpia < hoy)
+            {
+                return new List<DisponibilidadDTO>();
+            }
+
+
+            var plantilla = GenerarPlantillaDeHorarios(fechaLimpia);
+
+            if (!plantilla.Any())
+            {
+                return new List<DisponibilidadDTO>();
+            }
 
             // existe un turno ese dia? bueno traemelo
             var turnosReales = await _db.Turnos
@@ -101,18 +134,27 @@ namespace back_progr4.Services
 
             var disponibilidadDelDia = new List<DisponibilidadDTO>();
 
-            
+
             foreach (var horaInicio in plantilla)
             {
+                if (fechaLimpia == hoy && horaInicio < horaActual)
+                {
+                    continue;
+                }
+
                 if (turnosReales.TryGetValue(horaInicio, out var turnoReal))
                 {
-                    disponibilidadDelDia.Add(new DisponibilidadDTO
+                    // Si existe, usamos sus cupos (siempre que no esté lleno)
+                    if (turnoReal.Estado != ESTADO.LLENO)
                     {
-                        Fecha = fechaLimpia,
-                        HoraInicio = horaInicio,
-                        HoraFin = horaInicio.AddHours(1),
-                        CuposDisponibles = turnoReal.CuposDisponibles
-                    });
+                        disponibilidadDelDia.Add(new DisponibilidadDTO
+                        {
+                            Fecha = fechaLimpia,
+                            HoraInicio = horaInicio,
+                            HoraFin = horaInicio.AddHours(1), 
+                            CuposDisponibles = turnoReal.CuposDisponibles
+                        });
+                    }
                 }
                 else
                 {
@@ -121,7 +163,7 @@ namespace back_progr4.Services
                         Fecha = fechaLimpia,
                         HoraInicio = horaInicio,
                         HoraFin = horaInicio.AddHours(1),
-                        CuposDisponibles = CUPO_MAXIMO_POR_TURNO
+                        CuposDisponibles = CUPO_MAXIMO_POR_TURNO 
                     });
                 }
             }
