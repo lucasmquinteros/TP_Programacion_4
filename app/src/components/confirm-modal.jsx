@@ -31,6 +31,7 @@ export default function ConfirmModal({
     onSuccess: () => {
       setSuccessMessage(true);
       setTimeout(() => setModal(false), 3000);
+      location.reload();
     },
     onError: (error) => {
       console.error("Error al crear la reserva", error);

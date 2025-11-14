@@ -1,7 +1,7 @@
 import React from "react";
 import { deleteUser } from "../services/auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import ConfirmModal from "./ConfirmModal";
+import ConfirmModal from "./delete-modal";
 
 export default function UserCard({ user }) {
   const initials = (user.userName || "")
