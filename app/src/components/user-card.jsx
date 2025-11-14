@@ -1,7 +1,7 @@
 import React from "react";
 import { deleteUser } from "../services/auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import ConfirmModal from "./delete-modal";
+import DeleteModal from "./delete-modal";
 
 export default function UserCard({ user }) {
   const initials = (user.userName || "")
@@ -21,6 +21,7 @@ export default function UserCard({ user }) {
       queryClient.invalidateQueries(["users"]);
       alert("Usuario eliminado correctamente");
       setOpen(false);
+      location.reload();
     },
     onError: (err) => {
       alert("Error al eliminar usuario");
@@ -72,7 +73,7 @@ export default function UserCard({ user }) {
         </button>
       </article>
 
-      <ConfirmModal
+      <DeleteModal
         open={open}
         title={`Eliminar ${user.userName}`}
         message={`Esta acción eliminará al usuario "${user.userName}" de forma permanente. ¿Deseas continuar?`}
