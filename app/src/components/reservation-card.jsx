@@ -31,6 +31,7 @@ export default function ReservationCard({ reservation, isPast }) {
           <h4 className="text-xl font-bold text-gray-800">
             {formatDate(reservation.fechaReserva)}
           </h4>
+          npm
         </div>
         <span
           className={`px-3 py-1 rounded-full text-xs font-semibold ${

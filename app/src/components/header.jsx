@@ -126,7 +126,9 @@ export default function Header() {
               </button>
               <button
                 href="/sign-up"
-                className="text-red-600 border-red-600 bg-red-200 border-[1.8px] rounded-3xl px-3 py-1.5 cursor-pointer hidden lg:block"
+                className="text-red-600 border-red-600 bg-red-200 border-[1.8px] rounded-3xl px-3 py-1.5 cursor-pointer hidden lg:block
+             transition-all duration-300 ease-in-out
+             hover:shadow-[0_0_15px_rgba(220,38,38,0.7)] hover:border-transparent"
                 onClick={() => {
                   signOut();
                   logout();
@@ -155,18 +157,22 @@ export default function Header() {
                   />
                 </Link>
               )}
-
               <Link
                 href="/sign-in"
-                className="text-[#FFA500] border-[#FFA500] border-[1.8px] rounded-3xl px-3 py-1.5 cursor-pointer hidden md:block"
+                className="text-[#FFA500] Border-[#FFA500] border-[1.8px] rounded-3xl px-3 py-1.5 cursor-pointer hidden md:block
+             transition-colors duration-300
+             hover:bg-[#FFA500] hover:text-white"
               >
                 Inicia Sesión
               </Link>
+
               <Link
                 href="/sign-up"
-                className="text-white bg-[#FFA500] rounded-3xl px-3 py-1.5 cursor-pointer hidden md:block"
+                className="text-white bg-[#FFA500] rounded-3xl px-3 py-1.5 cursor-pointer hidden md:block
+             transition-colors duration-300
+             hover:bg-white hover:text-[#FFA500] hover:border-[#FFA500] hover:border-[1.8px]"
               >
-                Registrate
+                Regístrate
               </Link>
             </div>
           )}
@@ -219,7 +225,9 @@ export default function Header() {
           {isAuthenticated ? (
             <button
               href="/sign-up"
-              className="text-red-600 border-red-600 bg-red-200 border-[1.8px] rounded-3xl px-3 py-1.5 cursor-pointer"
+              className="text-red-600 border-red-600 bg-red-200 border-[1.8px] rounded-3xl px-3 py-1.5 cursor-pointer hidden lg:block
+             transition-all duration-300 ease-in-out
+             hover:shadow-[0_0_15px_rgba(220,38,38,0.7)] hover:border-transparent"
               onClick={() => {
                 signOut();
                 logout();
@@ -249,11 +257,19 @@ export default function Header() {
               <span className="text-gray-500 text-[16px]">{user?.email}</span>
             </div>
             <hr className="w-[300%]" />
-            <Link href="/user-reservations" className="cursor-pointer">
+            <Link
+              href="/user-reservations"
+              className="cursor-pointer relative group"
+            >
               Tus Reservas
+              <span className="block h-[2px] bg-[#FFA500] absolute bottom-[-4px] left-0 w-full transition-transform duration-300 ease-out transform scale-x-0 group-hover:scale-x-100"></span>
             </Link>
+
             {user?.roles?.includes("Admin") && (
-              <Link href="/admin">Estadisticas</Link>
+              <Link href="/admin" className="cursor-pointer relative group">
+                Estadísticas
+                <span className="block h-[2px] bg-[#FFA500] absolute bottom-[-4px] left-0 w-full transition-transform duration-300 ease-out transform scale-x-0 group-hover:scale-x-100"></span>
+              </Link>
             )}
           </nav>
           <button
