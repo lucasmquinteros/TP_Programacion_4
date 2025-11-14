@@ -51,7 +51,7 @@ export default function ConfirmModal({ setModal, turn }) {
 
     const reserva = {
       userId: user.id,
-      turnId: turn.id,
+      turnoId: turn.id,
       cantidad: count,
     };
 
@@ -88,8 +88,7 @@ export default function ConfirmModal({ setModal, turn }) {
           </div>
           <div className="bg-gray-200 rounded-2xl p-2 px-3">
             <p>
-              {turn.horaInicio.toString().padStart(2, "0")} -{" "}
-              {turn.horaFin.toString().padStart(2, "0")}
+              {turn.horaInicio.slice(0, 5)} - {turn.horaFin.slice(0, 5)}
             </p>
           </div>
           <div className="bg-gray-200 rounded-2xl p-2 px-3">

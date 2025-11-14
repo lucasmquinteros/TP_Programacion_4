@@ -6,10 +6,12 @@ import { useAuthStore } from "../store/auth-store";
 import { Link, useLocation } from "wouter";
 import { signUpSchema } from "../schema/authSchema.js";
 import FormInput from "../components/formInputs/FormInput";
+import { useState } from "react";
 
 export default function SignUp() {
   const { login } = useAuthStore();
   const [, setLocation] = useLocation();
+  const [backendError, setBackendError] = useState();
 
   const {
     register,
@@ -30,6 +32,12 @@ export default function SignUp() {
       login(data);
       setLocation("/");
     },
+    onError: (error) => {
+      const msg =
+        error?.response?.data?.message || "Ocurrió un error al registrarte";
+
+      setBackendError(msg);
+    },
   });
 
   const onSubmit = mutation.mutate;
@@ -45,6 +53,11 @@ export default function SignUp() {
           <p className="text-center text-gray-700">
             Únete a la diversión y gestiona tus reservas fácilmente.
           </p>
+          {backendError && (
+            <p className="text-red-600 font-semibold text-center mb-2">
+              {backendError}
+            </p>
+          )}
           <div>
             <FormInput
               label="Nombre completo"

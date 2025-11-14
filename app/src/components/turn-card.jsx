@@ -17,8 +17,7 @@ export default function TurnCard({ turn }) {
     <div className="bg-white p-5 px-6 w-[80%] rounded-3xl lg:flex lg:justify-between lg:items-center">
       <div className="lg:w-[70%]">
         <h4 className="font-semibold lg:text-[20px]">
-          {turn.horaInicio.toString().padStart(2, "0")} -{" "}
-          {turn.horaFin.toString().padStart(2, "0")}
+          {turn.horaInicio.slice(0, 5)} - {turn.horaFin.slice(0, 5)}
         </h4>
         <span className="text-[14px] text-gray-500">
           {cuposOcupados}/{turn.cupoMax} lugares ocupados

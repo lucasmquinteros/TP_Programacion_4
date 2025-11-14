@@ -266,9 +266,14 @@ export default function Header() {
             </Link>
 
             {user?.roles?.includes("Admin") && (
+<<<<<<< HEAD
               <Link href="/admin" className="cursor-pointer relative group">
                 Estadísticas
                 <span className="block h-[2px] bg-[#FFA500] absolute bottom-[-4px] left-0 w-full transition-transform duration-300 ease-out transform scale-x-0 group-hover:scale-x-100"></span>
+=======
+              <Link href="/admin" className="cursor-pointer">
+                Estadisticas
+>>>>>>> 1490472919f5d2c7cfa3b840c638a32fe29dbf4f
               </Link>
             )}
           </nav>

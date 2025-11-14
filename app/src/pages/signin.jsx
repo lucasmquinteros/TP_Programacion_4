@@ -6,10 +6,12 @@ import { signIn } from "../services/auth";
 import { useAuthStore } from "../store/auth-store";
 import { Link, useLocation } from "wouter";
 import FormInput from "../components/formInputs/FormInput";
+import { useState } from "react";
 
 export default function SignIn() {
   const { login } = useAuthStore();
   const [, setLocation] = useLocation();
+  const [backendError, setBackendError] = useState();
 
   const {
     register,
@@ -26,6 +28,12 @@ export default function SignIn() {
     onSuccess: (data) => {
       login(data);
       setLocation("/");
+    },
+    onError: (error) => {
+      const msg =
+        error?.response?.data?.message || "Ocurrió un error al registrarte";
+
+      setBackendError(msg);
     },
   });
 
@@ -46,6 +54,11 @@ export default function SignIn() {
           <p className="text-center text-gray-700">
             Inicia sesión para continuar
           </p>
+          {backendError && (
+            <p className="text-red-600 font-semibold text-center mb-2">
+              {backendError}
+            </p>
+          )}
           <div>
             <FormInput
               label="Email o Username"
