@@ -2,6 +2,7 @@ using back_progr4.Config;
 using back_progr4.Repositories;
 using back_progr4.Services;
 using back_progr4.Utils;
+using back_progr4.Workers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -44,6 +45,7 @@ builder.Services.AddScoped<IEncoderServices, EncoderServices>();
 builder.Services.AddScoped<RoleServices>();
 builder.Services.AddScoped<TurnoService>();
 builder.Services.AddScoped<ReservaService>();
+builder.Services.AddHostedService<LimpiadorReservasAntiguasService>();
 
 // Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
