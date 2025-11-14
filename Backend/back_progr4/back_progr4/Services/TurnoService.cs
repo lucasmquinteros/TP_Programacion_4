@@ -1,6 +1,7 @@
 ﻿using Auth.Utils;
 using AutoMapper;
 using back_progr4.Config;
+using back_progr4.ENUMS;
 using back_progr4.Models.Turno;
 using back_progr4.Models.Turno.DTOs;
 using back_progr4.Models.Turno.DTOs.back_progr4.Models.Turno.DTOs;
@@ -48,6 +49,10 @@ namespace back_progr4.Services
                 if (turno.CuposDisponibles >= cantidadARestar)
                 {
                     turno.CuposDisponibles -= cantidadARestar;
+                    if(turno.CuposDisponibles == 0)
+                    {
+                       turno.Estado = ESTADO.COMPLETO;
+                    }
                     _db.Turnos.Update(turno);
                 }
                 else
