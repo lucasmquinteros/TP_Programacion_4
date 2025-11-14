@@ -19,7 +19,7 @@ export default function UserReservations() {
     }
   }, [isAuthenticated, setLocation]);
 
-  const { data: reservations } = useQuery({
+  const { data: reservations, isLoading } = useQuery({
     queryKey: ["reservations"],
     queryFn: () => getReservationById(user.id),
   });
@@ -31,14 +31,14 @@ export default function UserReservations() {
       filteredReservations = reservations.filter(
         (reserva) => reserva.estado === "Confirmada"
       );
-    } else if (filterStatus === "Completo") {
+    } else if (filterStatus === "Finalizado") {
       filteredReservations = reservations.filter(
-        (reserva) => reserva.estado === "Completo"
+        (reserva) => reserva.estado === "Finalizado"
       );
     } else if (filterStatus === "Todas") {
       filteredReservations = reservations.filter(
         (reserva) =>
-          reserva.estado === "Confirmada" || reserva.estado === "Completo"
+          reserva.estado === "Confirmada" || reserva.estado === "Finalizado"
       );
     }
 
@@ -47,11 +47,11 @@ export default function UserReservations() {
     );
   }
 
-  const confirmadas = allReservations.filter(
+  const confirmadas = reservations.filter(
     (r) => r.estado === "Confirmada"
   ).length;
-  const completos = allReservations.filter(
-    (r) => r.estado === "Completo"
+  const completos = reservations.filter(
+    (r) => r.estado === "Finalizado"
   ).length;
 
   if (isLoading) {
@@ -71,24 +71,23 @@ export default function UserReservations() {
       <Header />
       <main className="flex flex-col items-center gap-10 md:gap-16 my-8 px-4 max-w-6xl mx-auto">
         <div className="w-full">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-8 text-center sm:text-left">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-8 text-center sm:text-left">
             Mis Reservas
-          </h1>
-          <h2> </h2>
+          </h2>
           <div className="flex gap-3 sm:gap-4 mb-8 justify-center flex-wrap">
             <button
               onClick={() => setFilterStatus("Todas")}
-              className={`px-4 py-2 rounded-lg font-semibold transition-colors text-sm sm:text-base whitespace-nowrap ${
+              className={`cursor-pointer px-4 py-2 rounded-lg font-semibold transition-colors text-sm sm:text-base whitespace-nowrap ${
                 filterStatus === "Todas"
                   ? "bg-blue-600 text-white shadow-md"
                   : "bg-gray-200 text-gray-800 hover:bg-gray-300"
               }`}
             >
-              Todas ({confirmadas && completos})
+              Todas ({reservations.length})
             </button>
             <button
               onClick={() => setFilterStatus("Confirmada")}
-              className={`px-4 py-2 rounded-lg font-semibold transition-colors text-sm sm:text-base whitespace-nowrap ${
+              className={`cursor-pointer px-4 py-2 rounded-lg font-semibold transition-colors text-sm sm:text-base whitespace-nowrap ${
                 filterStatus === "Confirmada"
                   ? "bg-green-600 text-white shadow-md"
                   : "bg-gray-200 text-gray-800 hover:bg-gray-300"
@@ -97,14 +96,14 @@ export default function UserReservations() {
               Confirmadas ({confirmadas})
             </button>
             <button
-              onClick={() => setFilterStatus("Completo")}
-              className={`px-4 py-2 rounded-lg font-semibold transition-colors text-sm sm:text-base whitespace-nowrap ${
-                filterStatus === "Completo"
+              onClick={() => setFilterStatus("Finalizado")}
+              className={`cursor-pointer px-4 py-2 rounded-lg font-semibold transition-colors text-sm sm:text-base whitespace-nowrap ${
+                filterStatus === "Finalizado"
                   ? "bg-orange-600 text-white"
                   : "bg-gray-200 text-gray-800 hover:bg-gray-300"
               }`}
             >
-              Completadas ({completos})
+              Finalizadas ({completos})
             </button>
           </div>
           {filteredReservations.length === 0 ? (
@@ -115,7 +114,7 @@ export default function UserReservations() {
                   : `Todavía no tienes ninguna reserva ${
                       filterStatus === "Confirmada"
                         ? "confirmada"
-                        : "completada"
+                        : "Finalizado"
                     }`}
               </p>
             </div>
