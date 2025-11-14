@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocation } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useAuthStore } from "../store/auth-store";
 import { Card, Progress } from "flowbite-react";
 import { useQuery } from "@tanstack/react-query";
@@ -55,10 +55,13 @@ export default function Admin() {
       <Header />
       <main className="gap-8 w-[85%] mx-auto text-3xl lg:text-4xl text-center my-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 md:w-[50%] mx-auto gap-9">
-          <div className="bg-white rounded-3xl p-7 border border-gray-300 shadow-2xl flex flex-col items-center gap-4 lg:p-10">
+          <Link
+            href="admin/users"
+            className="bg-white rounded-3xl p-7 border border-gray-300 shadow-2xl flex flex-col items-center gap-4 lg:p-10"
+          >
             <h4 className="font-semibold text-gray-700">Total de usuarios</h4>
             <span className="text-[#FFA500]">{totalUsers}</span>
-          </div>
+          </Link>
           <div className="bg-white rounded-3xl p-7 border border-gray-300 shadow-2xl flex flex-col items-center gap-4 lg:p-10">
             <h4 className="font-semibold text-gray-700">Total de turnos</h4>
             <span className="text-[#FFA500]">{totalTurns}</span>

@@ -5,7 +5,6 @@ import { lazy, Suspense, useEffect } from "react";
 import { useAuthStore } from "./store/auth-store.js";
 import { checkAuth, signOut } from "./services/auth.js";
 import { LoadingSpinner } from "./components/loading-spinner.jsx";
-import Admin from "./pages/admin.jsx";
 
 const Home = lazy(() => import("./pages/home.jsx"));
 const Page404 = lazy(() => import("./pages/page404.jsx"));
@@ -13,6 +12,8 @@ const SignIn = lazy(() => import("./pages/signin.jsx"));
 const SignUp = lazy(() => import("./pages/signup.jsx"));
 const Reservations = lazy(() => import("./pages/reservations.jsx"));
 const UserReservations = lazy(() => import("./pages/user-reservations.jsx"));
+const Admin = lazy(() => import("./pages/admin.jsx"));
+const Users = lazy(() => import("./pages/users.jsx"));
 
 const queryClient = new QueryClient();
 
@@ -49,6 +50,9 @@ export default function App() {
           </Route>
           <Route path="admin">
             <Admin />
+          </Route>
+          <Route path="admin/users">
+            <Users />
           </Route>
 
           <Route>
